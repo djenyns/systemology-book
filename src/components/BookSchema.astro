@@ -1,0 +1,138 @@
+---
+/**
+ * The canonical JSON-LD @graph for any chapter or hub page.
+ *
+ * Includes Book + Chapter + Article + Person + Organization, all cross-linked
+ * by @id per the AI-citation research findings (research/01-ai-citation-research.md §3).
+ *
+ * Drop on every chapter page.
+ */
+import { book, chapters, type Chapter } from "@data/book";
+
+interface Props {
+  chapter?: Chapter;
+  description: string;
+}
+
+const { chapter, description } = Astro.props;
+
+const bookId = `${book.canonicalUrl}#book`;
+const personId = `${book.author.url}#person`;
+const orgId = "https://systemology.com#organization";
+
+const chapterUrl = chapter
+  ? `${book.canonicalUrl}${chapter.slug}/`
+  : book.canonicalUrl;
+const chapterId = chapter
+  ? `${chapterUrl}#chapter`
+  : `${bookId}-hub`;
+
+const graph: any[] = [
+  // Person — author
+  {
+    "@type": "Person",
+    "@id": personId,
+    name: book.author.name,
+    url: book.author.url,
+    sameAs: book.author.sameAs,
+    jobTitle: "Founder, SYSTEMology",
+    worksFor: { "@id": orgId },
+    description:
+      "David Jenyns is the founder of SYSTEMology and author of three bestselling business books. He helps business owners systemise their operations and free themselves from daily operations.",
+  },
+  // Organization — publisher of the online edition
+  {
+    "@type": "Organization",
+    "@id": orgId,
+    name: "SYSTEMology",
+    url: "https://systemology.com",
+    logo: "https://systemology.com/wp-content/uploads/systemology-logo.png",
+    founder: { "@id": personId },
+    sameAs: [
+      "https://www.linkedin.com/company/systemology",
+      "https://twitter.com/systemology",
+    ],
+  },
+  // Book — the canonical work
+  {
+    "@type": "Book",
+    "@id": bookId,
+    name: book.title,
+    alternateName: book.subtitle,
+    headline: `${book.title}: ${book.subtitle}`,
+    author: { "@id": personId },
+    publisher: {
+      "@type": "Organization",
+      name: book.publisher.name,
+      url: book.publisher.url,
+    },
+    isbn: book.isbn13,
+    bookFormat: "https://schema.org/EBook",
+    datePublished: book.datePublished,
+    inLanguage: book.inLanguage,
+    numberOfPages: book.pageCount,
+    url: book.canonicalUrl,
+    license: book.license,
+    sameAs: [book.amazonUrl, book.audibleUrl, book.goodreadsUrl],
+    isSimilarTo: book.isSimilarTo.map((b) => ({
+      "@type": "Book",
+      name: b.name,
+      author: { "@type": "Person", name: b.author },
+    })),
+    hasPart: chapters
+      .filter((c) => c.slug !== "glossary" && c.slug !== "about")
+      .map((c) => ({
+        "@id": `${book.canonicalUrl}${c.slug}/#chapter`,
+      })),
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.22",
+      ratingCount: "733",
+      bestRating: "5",
+    },
+  },
+];
+
+if (chapter) {
+  graph.push({
+    "@type": "Chapter",
+    "@id": chapterId,
+    name: chapter.title,
+    headline: `${chapter.title} — ${chapter.subtitle}`,
+    description,
+    isPartOf: { "@id": bookId },
+    position: chapter.number ?? undefined,
+    url: chapterUrl,
+    inLanguage: book.inLanguage,
+    license: book.license,
+    author: { "@id": personId },
+  });
+
+  graph.push({
+    "@type": "Article",
+    "@id": `${chapterUrl}#article`,
+    headline: `${chapter.title} — ${chapter.subtitle}`,
+    description,
+    mainEntityOfPage: chapterUrl,
+    isPartOf: { "@id": chapterId },
+    author: { "@id": personId },
+    publisher: { "@id": orgId },
+    datePublished: book.datePublished,
+    dateModified: new Date().toISOString().slice(0, 10),
+    inLanguage: book.inLanguage,
+    license: book.license,
+    url: chapterUrl,
+  });
+}
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": graph,
+};
+---
+
+<script
+  type="application/ld+json"
+  is:inline
+  set:html={JSON.stringify(jsonLd)}
+/>

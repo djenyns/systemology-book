@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Reading-optimised body type */
+html {
+  font-family: theme('fontFamily.serif');
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background: theme('colors.brand.cream');
+  color: theme('colors.brand.ink');
+}
+
+/* Headings use display sans */
+h1, h2, h3, h4, h5, h6 {
+  font-family: theme('fontFamily.display');
+  letter-spacing: -0.015em;
+}
+
+/* Pull-quote styling */
+blockquote.pull-quote {
+  font-family: theme('fontFamily.serif');
+  font-size: 1.5rem;
+  line-height: 1.5;
+  font-style: italic;
+  color: theme('colors.brand.navy');
+  border-left: 4px solid theme('colors.brand.orange');
+  padding-left: 1.5rem;
+  margin: 2rem 0;
+}
+
+/* Stable-anchor target highlight */
+:target {
+  background: rgba(249, 115, 22, 0.08);
+  scroll-margin-top: 5rem;
+  transition: background 0.5s ease;
+}
+
+/* Definition styling */
+dfn {
+  font-style: normal;
+  font-weight: 600;
+  border-bottom: 2px dotted theme('colors.brand.orange');
+  cursor: help;
+}

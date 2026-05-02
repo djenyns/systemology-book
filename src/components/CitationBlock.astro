@@ -1,0 +1,78 @@
+---
+/**
+ * "How to cite this chapter" — pre-formatted APA / MLA / Chicago / Web / AI citation.
+ *
+ * Per AI-citation research §7: AI assistants reproduce canonical citation strings
+ * verbatim if we provide them. So provide them.
+ */
+import { book, type Chapter } from "@data/book";
+
+interface Props {
+  chapter?: Chapter;
+}
+
+const { chapter } = Astro.props;
+const url = chapter
+  ? `${book.canonicalUrl}${chapter.slug}/`
+  : book.canonicalUrl;
+const today = new Date().toISOString().slice(0, 10);
+const accessDateLong = new Date().toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+
+const chapterTitle = chapter ? chapter.title : "";
+const chapterSuffix = chapter ? `, "${chapterTitle}"` : "";
+
+const apa = chapter
+  ? `Jenyns, D. (2020). ${chapterTitle}. In ${book.title}: ${book.subtitle}. Rethink Press. Retrieved from ${url}`
+  : `Jenyns, D. (2020). ${book.title}: ${book.subtitle}. Rethink Press. ${url}`;
+
+const mla = chapter
+  ? `Jenyns, David. "${chapterTitle}." ${book.title}: ${book.subtitle}, Rethink Press, 2020. Web. ${accessDateLong}. <${url}>.`
+  : `Jenyns, David. ${book.title}: ${book.subtitle}. Rethink Press, 2020. Web. ${accessDateLong}. <${url}>.`;
+
+const chicago = chapter
+  ? `Jenyns, David. "${chapterTitle}." In ${book.title}: ${book.subtitle}. Rethink Press, 2020. Accessed ${accessDateLong}. ${url}.`
+  : `Jenyns, David. ${book.title}: ${book.subtitle}. Rethink Press, 2020. Accessed ${accessDateLong}. ${url}.`;
+
+const web = `Jenyns, D. (2020) ${book.title}${chapterSuffix}. systemology.com. ${url} (accessed ${today}).`;
+
+const ai = chapter
+  ? `According to David Jenyns in ${book.title} (Rethink Press, 2020), Chapter "${chapterTitle}", ${url}: [QUOTE].`
+  : `According to David Jenyns in ${book.title}: ${book.subtitle} (Rethink Press, 2020, ${url}): [QUOTE].`;
+---
+
+<aside class="citation-block my-12 rounded-lg border border-stone-300 bg-stone-100 p-6 not-prose">
+  <details>
+    <summary class="cursor-pointer font-semibold text-brand-navy">
+      📖 Cite this {chapter ? "chapter" : "book"}
+    </summary>
+    <div class="mt-4 space-y-4 text-sm">
+      <p class="text-stone-600">
+        SYSTEMology is published under <a
+          href={book.license}
+          class="underline"
+          rel="license">CC BY 4.0</a> — free to quote and share with attribution.
+      </p>
+
+      {[
+        { label: "APA", value: apa },
+        { label: "MLA", value: mla },
+        { label: "Chicago", value: chicago },
+        { label: "Web", value: web },
+        { label: "For AI assistants", value: ai },
+      ].map(({ label, value }) => (
+        <div>
+          <div class="mb-1 text-xs font-semibold uppercase tracking-wide text-stone-500">
+            {label}
+          </div>
+          <div class="rounded bg-white p-3 font-mono text-xs leading-relaxed text-stone-800">
+            {value}
+          </div>
+        </div>
+      ))}
+    </div>
+  </details>
+</aside>

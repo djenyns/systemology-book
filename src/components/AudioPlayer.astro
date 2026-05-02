@@ -1,0 +1,51 @@
+---
+/**
+ * Wistia audio embed — chapter audiobook.
+ *
+ * Phase 1: stub player using the local MP3 (works in dev).
+ * Phase 1 Day 4: replaced with Wistia hashed_id once audio is uploaded.
+ */
+interface Props {
+  audioFile: string;
+  durationMinutes: number;
+  wistiaId?: string; // populated when audio is uploaded
+}
+
+const { audioFile, durationMinutes, wistiaId } = Astro.props;
+
+// Until Wistia upload, use a placeholder local audio path.
+// In production, the MP3 path won't ship — Wistia takes over.
+const localSrc = audioFile
+  ? `/audio/${encodeURIComponent(audioFile)}`
+  : null;
+---
+
+{wistiaId ? (
+  <div class="audio-player my-6 rounded-lg border border-stone-300 bg-white p-4">
+    <div class={`wistia_responsive_padding`} style="padding:56.25% 0 0 0;position:relative;">
+      <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
+        <div
+          class={`wistia_embed wistia_async_${wistiaId} videoFoam=true`}
+          style="height:100%;position:relative;width:100%;"
+        ></div>
+      </div>
+    </div>
+    <script src="https://fast.wistia.com/assets/external/E-v1.js" async></script>
+  </div>
+) : localSrc ? (
+  <div class="audio-player my-6 rounded-lg border border-stone-300 bg-white p-4 not-prose">
+    <div class="flex items-center gap-3 mb-2">
+      <span class="text-xl">🎧</span>
+      <span class="text-sm font-semibold text-brand-navy">
+        Listen to this chapter ({durationMinutes} min)
+      </span>
+    </div>
+    <audio controls preload="none" class="w-full">
+      <source src={localSrc} type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+    <p class="mt-2 text-xs text-stone-500">
+      Narrated by David Jenyns. Free to listen — no signup required.
+    </p>
+  </div>
+) : null}
