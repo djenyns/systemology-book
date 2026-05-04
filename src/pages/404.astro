@@ -1,0 +1,75 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+const description =
+  "That page doesn't exist on the SYSTEMology free online edition — but the table of contents will get you to where you wanted to go.";
+---
+
+<BaseLayout title="Page not found" description={description} bodyClass="not-found">
+  <article class="nf">
+    <p class="nf__masthead">404</p>
+    <h1 class="nf__title">That page didn’t survive the system audit.</h1>
+    <p class="nf__body">
+      The link you followed doesn’t match anything in the SYSTEMology free online edition.
+      Probably a typo, an old URL, or a chapter that got renamed.
+    </p>
+    <div class="nf__actions">
+      <a href="/pdf/" class="btn-cta">Back to the table of contents →</a>
+      <a href="/pdf/glossary/" class="nf__secondary">Or browse the glossary →</a>
+    </div>
+    <p class="nf__hint">
+      Looking for something specific? Try the <a href="https://www.systemology.com/" target="_blank" rel="noopener">main SYSTEMology site</a>
+      or <a href="https://www.systemology.com/podcast/" target="_blank" rel="noopener">the podcast</a>.
+    </p>
+  </article>
+</BaseLayout>
+
+<style>
+  .nf {
+    max-width: 42rem;
+    margin: 0 auto;
+    padding: 6em 1.5em 4em;
+    text-align: center;
+  }
+  .nf__masthead {
+    font-family: "Open Sans", sans-serif;
+    font-size: 5rem;
+    font-weight: 700;
+    margin: 0;
+    color: rgb(var(--color-cyan));
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .nf__title {
+    font-size: 1.8rem;
+    margin: 0.4em 0 0.8em;
+    color: rgb(var(--color-navy));
+  }
+  .nf__body {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: rgb(var(--color-charcoal));
+    margin-bottom: 2.4em;
+  }
+  .nf__actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.9em;
+    margin-bottom: 3em;
+  }
+  .nf__secondary {
+    color: rgb(var(--color-text-muted));
+    font-family: "Open Sans", sans-serif;
+    font-size: 0.95rem;
+    text-decoration: none;
+  }
+  .nf__secondary:hover { color: rgb(var(--color-cyan)); }
+  .nf__hint {
+    font-size: 0.95rem;
+    color: rgb(var(--color-text-muted));
+    border-top: 1px solid rgb(var(--color-rule));
+    padding-top: 1.5em;
+    margin-top: 1em;
+  }
+</style>

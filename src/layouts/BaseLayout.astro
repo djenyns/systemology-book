@@ -15,6 +15,7 @@ const canonicalUrl =
   canonical ?? new URL(Astro.url.pathname, "https://www.systemology.com").toString();
 const fullTitle =
   title === book.title ? `${title} — Read free online` : `${title} — SYSTEMology`;
+const resolvedOgImage = ogImage ?? "https://www.systemology.com/pdf/brand/og-image.png";
 ---
 
 <!doctype html>
@@ -52,7 +53,9 @@ const fullTitle =
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:site_name" content="SYSTEMology" />
-    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta property="og:image" content={resolvedOgImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="book:author" content="David Jenyns" />
     <meta property="book:isbn" content={book.isbn13} />
     <meta property="book:release_date" content={book.datePublished} />
@@ -61,7 +64,7 @@ const fullTitle =
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
-    {ogImage && <meta name="twitter:image" content={ogImage} />}
+    <meta name="twitter:image" content={resolvedOgImage} />
 
     {/* Citation metadata (Highwire) */}
     <meta name="citation_title" content={book.title} />
@@ -81,6 +84,16 @@ const fullTitle =
       gtag("js", new Date());
       gtag("config", id);
     </script>
+
+    {/* HubSpot — tracking + live-chat widget (single script handles both) */}
+    <script
+      is:inline
+      type="text/javascript"
+      id="hs-script-loader"
+      async
+      defer
+      src="//js.hs-scripts.com/45129160.js"
+    ></script>
 
     <slot name="schema" />
   </head>
