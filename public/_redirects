@@ -1,0 +1,6 @@
+# Cloudflare Pages: serve the site at both / and /pdf/ paths.
+# Astro is built with base: "/pdf", so asset URLs in HTML reference
+# /pdf/_astro/foo.css. The actual files sit at /_astro/foo.css in
+# the deployed dist/. This rewrite resolves /pdf/<anything> → /<anything>
+# at the edge so both URL forms work without 404s.
+/pdf/* /:splat 200
