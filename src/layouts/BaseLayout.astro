@@ -73,6 +73,15 @@ const fullTitle =
     <link rel="preconnect" href="https://fast.wistia.net" />
     <link rel="dns-prefetch" href="https://fast.wistia.com" />
 
+    {/* Google Analytics 4 — same property as the rest of systemology.com */}
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-SP44Y9LJ21"></script>
+    <script is:inline define:vars={{ id: "G-SP44Y9LJ21" }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag("js", new Date());
+      gtag("config", id);
+    </script>
+
     <slot name="schema" />
   </head>
   <body class={bodyClass}>
