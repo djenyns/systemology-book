@@ -12,7 +12,7 @@ interface Props {
 
 const { title, description, canonical, ogImage, bodyClass = "" } = Astro.props;
 const canonicalUrl =
-  canonical ?? new URL(Astro.url.pathname, "https://systemology.com").toString();
+  canonical ?? new URL(Astro.url.pathname, "https://www.systemology.com").toString();
 const fullTitle =
   title === book.title ? `${title} — Read free online` : `${title} — SYSTEMology`;
 ---
@@ -91,7 +91,7 @@ const fullTitle =
 
     <header class="site-header">
       <div class="site-header__inner">
-        <a href="https://systemology.com/" class="site-header__brand" aria-label="SYSTEMology home">
+        <a href="https://www.systemology.com/" class="site-header__brand" aria-label="SYSTEMology home">
           <img
             src="/pdf/brand/systemology-logo-white.png"
             alt="SYSTEMology"

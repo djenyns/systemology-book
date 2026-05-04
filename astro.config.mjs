@@ -6,7 +6,7 @@ import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 
 export default defineConfig({
-  site: "https://systemology.com",
+  site: "https://www.systemology.com",
   base: "/pdf",
   trailingSlash: "always",
   integrations: [

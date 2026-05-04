@@ -30,7 +30,7 @@ export const book = {
   audioNarrator: "David Jenyns",
   license: "https://creativecommons.org/licenses/by/4.0/",
   licenseShort: "CC BY 4.0",
-  canonicalUrl: "https://systemology.com/pdf/",
+  canonicalUrl: "https://www.systemology.com/pdf/",
   amazonUrl: "https://www.amazon.com/dp/B08CDY993G",
   audibleUrl: "https://www.audible.com/pd/SYSTEMology-Audiobook/B08FLBPP9R",
   goodreadsUrl: "https://www.goodreads.com/book/show/54609541-systemology",

@@ -18,7 +18,7 @@ const { chapter, description } = Astro.props;
 
 const bookId = `${book.canonicalUrl}#book`;
 const personId = `${book.author.url}#person`;
-const orgId = "https://systemology.com#organization";
+const orgId = "https://www.systemology.com#organization";
 
 const chapterUrl = chapter
   ? `${book.canonicalUrl}${chapter.slug}/`
@@ -45,8 +45,8 @@ const graph: any[] = [
     "@type": "Organization",
     "@id": orgId,
     name: "SYSTEMology",
-    url: "https://systemology.com",
-    logo: "https://systemology.com/wp-content/uploads/systemology-logo.png",
+    url: "https://www.systemology.com",
+    logo: "https://www.systemology.com/wp-content/uploads/systemology-logo.png",
     founder: { "@id": personId },
     sameAs: [
       "https://www.linkedin.com/company/systemology",
