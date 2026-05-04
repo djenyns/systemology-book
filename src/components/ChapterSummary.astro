@@ -1,0 +1,65 @@
+---
+/**
+ * Chapter Summary card — light-grey background variant per Dave's preference.
+ * Cyan accent stripe. Highlights render as proper bulleted list.
+ */
+interface Props {
+  chapter: string;
+}
+
+const { chapter } = Astro.props;
+---
+
+<aside class="chapter-summary not-prose">
+  <p class="chapter-summary__masthead">In this chapter</p>
+  <div class="chapter-summary__body">
+    <slot />
+  </div>
+</aside>
+
+<style is:global>
+  .chapter-summary {
+    margin: 2em 0 3em 0;
+    padding: 1.6em 1.8em;
+    background: rgb(var(--color-section-alt));
+    color: rgb(var(--color-charcoal));
+    border-radius: 6px;
+    border-left: 6px solid rgb(var(--color-cyan));
+    font-family: "Source Serif 4", serif;
+  }
+  .chapter-summary__masthead {
+    font-size: 0.75em;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: rgb(var(--color-cyan));
+    font-family: "Open Sans", sans-serif;
+    font-weight: 700;
+    margin: 0 0 1em 0;
+  }
+  .chapter-summary__body p {
+    color: rgb(var(--color-charcoal));
+    margin: 0 0 1em 0;
+    line-height: 1.6;
+  }
+  .chapter-summary__body p:last-child {
+    margin-bottom: 0;
+  }
+  .chapter-summary__body strong {
+    color: rgb(var(--color-navy));
+    font-weight: 700;
+  }
+  .chapter-summary__body ul {
+    list-style: disc;
+    margin: 0.5em 0 0 0;
+    padding-left: 1.5em;
+  }
+  .chapter-summary__body ul li {
+    margin: 0.5em 0;
+    color: rgb(var(--color-charcoal));
+    line-height: 1.5;
+  }
+  .chapter-summary__body ul li::marker {
+    color: rgb(var(--color-cyan));
+    font-size: 1.1em;
+  }
+</style>

@@ -7,11 +7,14 @@ interface Props {
   description: string;
   canonical?: string;
   ogImage?: string;
+  bodyClass?: string;
 }
 
-const { title, description, canonical, ogImage } = Astro.props;
-const canonicalUrl = canonical ?? new URL(Astro.url.pathname, "https://systemology.com").toString();
-const fullTitle = title === book.title ? `${title} — Read free online` : `${title} | SYSTEMology`;
+const { title, description, canonical, ogImage, bodyClass = "" } = Astro.props;
+const canonicalUrl =
+  canonical ?? new URL(Astro.url.pathname, "https://systemology.com").toString();
+const fullTitle =
+  title === book.title ? `${title} — Read free online` : `${title} — SYSTEMology`;
 ---
 
 <!doctype html>
@@ -19,17 +22,31 @@ const fullTitle = title === book.title ? `${title} — Read free online` : `${ti
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#081d3d" />
     <meta name="generator" content={Astro.generator} />
 
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
 
-    <!-- CC BY 4.0 license declaration #1: HTTP Link header equivalent in meta -->
+    {/* Favicon — sourced from systemology.com */}
+    <link rel="icon" type="image/png" sizes="60x60" href="/pdf/brand/favicon-60.png" />
+    <link rel="icon" type="image/png" sizes="133x133" href="/pdf/brand/favicon.png" />
+    <link rel="apple-touch-icon" href="/pdf/brand/favicon.png" />
+
+    {/* Open Sans (UI/headings) + Source Serif 4 (reading body) */}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,600&display=swap"
+      rel="stylesheet"
+    />
+
+    {/* CC BY 4.0 license */}
     <link rel="license" href={book.license} />
     <meta name="DC.rights" content={book.licenseShort} />
 
-    <!-- Open Graph -->
+    {/* Open Graph */}
     <meta property="og:type" content="book" />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
@@ -40,62 +57,70 @@ const fullTitle = title === book.title ? `${title} — Read free online` : `${ti
     <meta property="book:isbn" content={book.isbn13} />
     <meta property="book:release_date" content={book.datePublished} />
 
-    <!-- Twitter -->
+    {/* Twitter */}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
     {ogImage && <meta name="twitter:image" content={ogImage} />}
 
-    <!-- Citation metadata (Highwire) -->
+    {/* Citation metadata (Highwire) */}
     <meta name="citation_title" content={book.title} />
     <meta name="citation_author" content="David Jenyns" />
     <meta name="citation_publication_date" content={book.datePublished} />
     <meta name="citation_isbn" content={book.isbn13} />
     <meta name="citation_publisher" content={book.publisher.name} />
 
-    <!-- Preconnect to Wistia -->
     <link rel="preconnect" href="https://fast.wistia.net" />
     <link rel="dns-prefetch" href="https://fast.wistia.com" />
 
-    <!-- Slot for per-page schema -->
     <slot name="schema" />
   </head>
-  <body>
-    <header class="border-b border-stone-200 bg-white">
-      <div class="mx-auto max-w-5xl px-4 py-3 flex items-center justify-between">
-        <a href="/pdf/" class="text-lg font-semibold text-brand-navy no-underline">
-          SYSTEMology
+  <body class={bodyClass}>
+    <div class="warning">
+      Heads up: this site uses CSS Grid. Your browser is older than that — content may look unstyled but everything still reads.
+    </div>
+
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a href="https://systemology.com/" class="site-header__brand" aria-label="SYSTEMology home">
+          <img
+            src="/pdf/brand/systemology-logo-white.png"
+            alt="SYSTEMology"
+            class="site-header__logo"
+            width="250"
+            height="38"
+          />
         </a>
-        <nav class="flex items-center gap-6 text-sm">
-          <a href="/pdf/" class="hover:text-orange-600">Read</a>
-          <a href="https://systemology.com/book/" class="hover:text-orange-600">Buy</a>
-          <a href="https://systemology.com/resources/" class="hover:text-orange-600">Resources</a>
-          <a href="https://systemhub.com/" class="hover:text-orange-600">systemHUB</a>
+        <nav class="site-header__nav" aria-label="Primary">
+          <a href="/pdf/">Table of Contents</a>
+          <a href={book.amazonUrl} class="site-header__cta">Buy the book</a>
         </nav>
       </div>
     </header>
 
-    <main class="min-h-screen">
+    <main>
       <slot />
     </main>
 
-    <footer class="mt-20 border-t border-stone-200 bg-white">
-      <div class="mx-auto max-w-5xl px-4 py-8 text-sm text-stone-600">
-        <div class="flex flex-wrap items-start justify-between gap-6">
-          <div>
-            <p class="font-semibold text-brand-navy">SYSTEMology</p>
-            <p>by David Jenyns · Rethink Press, 2020 · ISBN {book.isbn13}</p>
-          </div>
-          <div class="text-sm" itemscope itemtype="http://creativecommons.org/ns#License">
-            <p>
-              Released free under <a
-                href={book.license}
-                rel="license"
-                class="underline">CC BY 4.0</a>
-            </p>
-            <p>You are free to read, share, quote, and translate with attribution.</p>
-          </div>
-        </div>
+    <footer class="site-footer">
+      <div class="site-footer__inner">
+        <p class="site-footer__brand">SYSTEMology</p>
+        <p>
+          by David Jenyns · Rethink Press, 2020 · ISBN {book.isbn13}
+        </p>
+        <p>
+          Published online free under <a
+            href={book.license}
+            rel="license">{book.licenseShort}</a>. You are free to read, share, quote and translate
+          with attribution.
+        </p>
+        <p style="margin-top: 1.5em;">
+          Prefer print? <a href={book.amazonUrl}>Get the paperback or Kindle</a> ·
+          <a href={book.audibleUrl}> Listen on Audible</a>
+        </p>
+        <p style="margin-top: 1.5em; font-size: 0.85em; opacity: 0.7;">
+          © {new Date().getFullYear()} SYSTEMology. All rights reserved.
+        </p>
       </div>
     </footer>
   </body>

@@ -1,0 +1,42 @@
+---
+/**
+ * Wistia video embed — for inline chapter videos (Gerber foreword, Allan Dib endorsement, etc.)
+ *
+ * Usage: <WistiaVideo wistiaId="fkeues1uxt" label="Watch Michael Gerber read the foreword" />
+ */
+interface Props {
+  wistiaId: string;
+  label?: string;
+}
+
+const { wistiaId, label } = Astro.props;
+---
+
+<figure class="wistia-video">
+  <div class="wistia_responsive_padding" style="padding:56.25% 0 0 0;position:relative;">
+    <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
+      <div
+        class={`wistia_embed wistia_async_${wistiaId} videoFoam=true`}
+        style="height:100%;position:relative;width:100%;"
+      ></div>
+    </div>
+  </div>
+  <script src="https://fast.wistia.com/assets/external/E-v1.js" async is:inline></script>
+  {label && <figcaption>{label}</figcaption>}
+</figure>
+
+<style>
+  .wistia-video {
+    margin: 1.5em auto 2em auto;
+    max-width: 65ch;
+    padding: 0 1.5em;
+  }
+  .wistia-video figcaption {
+    margin-top: 0.6em;
+    font-size: 0.9em;
+    color: rgb(var(--color-text-muted));
+    font-style: italic;
+    font-family: "Source Serif 4", serif;
+    text-align: center;
+  }
+</style>

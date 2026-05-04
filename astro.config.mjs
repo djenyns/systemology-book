@@ -2,13 +2,27 @@ import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
+import rehypeSlug from "rehype-slug";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
 
 export default defineConfig({
   site: "https://systemology.com",
   base: "/pdf",
   trailingSlash: "always",
   integrations: [
-    mdx(),
+    mdx({
+      rehypePlugins: [
+        rehypeSlug,
+        [
+          rehypeAutolinkHeadings,
+          {
+            behavior: "append",
+            properties: { className: ["anchor-link"], "aria-label": "Direct link" },
+            content: { type: "text", value: "¶" },
+          },
+        ],
+      ],
+    }),
     sitemap({
       changefreq: "monthly",
       priority: 0.9,
@@ -23,5 +37,16 @@ export default defineConfig({
       theme: "github-light",
       wrap: true,
     },
+    rehypePlugins: [
+      rehypeSlug,
+      [
+        rehypeAutolinkHeadings,
+        {
+          behavior: "append",
+          properties: { className: ["anchor-link"], "aria-label": "Direct link" },
+          content: { type: "text", value: "¶" },
+        },
+      ],
+    ],
   },
 });

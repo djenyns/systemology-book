@@ -1,10 +1,9 @@
 ---
 /**
- * Inline definition — DefinedTerm schema, stable anchor, glossary cross-link.
+ * Inline definition — DefinedTerm schema, glossary cross-link.
  *
- * Use inline in chapter prose: <Definition term="Critical Client Flow" slug="critical-client-flow">
- *   the 10-15 systems that move a customer from lead to repeat buyer
- * </Definition>
+ * Renders a <dfn> with dotted underline. Hover = "see glossary" cursor.
+ * Click = navigate to the glossary entry.
  */
 interface Props {
   term: string;
@@ -16,15 +15,15 @@ const glossaryUrl = `/pdf/glossary/${slug}/`;
 ---
 
 <span
-  class="inline-block"
   itemscope
   itemtype="https://schema.org/DefinedTerm"
   id={`def-${slug}`}
 >
-  <dfn itemprop="name" title={`Defined term — see glossary`}>
-    <a href={glossaryUrl} class="no-underline hover:underline">{term}</a>
+  <dfn itemprop="name" title="See glossary">
+    <a href={glossaryUrl}>{term}</a>
   </dfn>
-  <span itemprop="description" class="hidden">
+  <meta itemprop="description" content={undefined} />
+  <span itemprop="description" hidden>
     <slot />
   </span>
 </span>

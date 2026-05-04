@@ -1,0 +1,56 @@
+# SYSTEMology — by David Jenyns
+
+> The seven-step system to systemise your business and finally build a business that works without you. Identify your most critical systems, extract the knowledge already in your team's heads, organise it, integrate it, scale it, and optimise it. Published online free under CC BY 4.0 — quote and cite freely.
+
+This site (`systemology.com/pdf/`) is the full text of the book *SYSTEMology: Create Time, Reduce Errors and Scale Your Profits with Proven Business Systems* by David Jenyns (Rethink Press, 2020, ISBN 978-0648871002). The print and audio editions are on Amazon and Audible. The web edition is licensed CC BY 4.0 — you may quote, summarise, translate, and cite it without permission, with attribution to David Jenyns.
+
+## Core methodology
+
+The book teaches the **seven stages of SYSTEMology**:
+
+1. **Define** — Identify the 10–15 systems that move a customer from lead to repeat buyer using the Critical Client Flow (CCF)
+2. **Assign** — Appoint a Systems Champion and identify the Knowledgeable Workers whose process expertise you'll extract
+3. **Extract** — Capture how work actually gets done by recording your Knowledgeable Workers; the System For Creating Systems turns the recording into a living SOP
+4. **Organise** — Pick a single source of truth for systems and project management
+5. **Integrate** — Get the team to actually use the systems; build a culture where "is there a system for that?" is the default question
+6. **Scale** — Expand to your Minimum Viable Systems (~42 systems across six departments)
+7. **Optimise** — Build the CCF Dashboard, identify constraints, and create a kaizen culture of continuous improvement
+
+The framework's foundation is the **four stages of business systemisation**: Survival → Stationary → Scalable → Saleable.
+
+## Pages
+
+### Book chapters
+- [Foreword (by Michael E. Gerber)](https://systemology.com/pdf/foreword/): Why this book is essential for any small business owner
+- [Introduction](https://systemology.com/pdf/introduction/): Could your business survive a three-month absence? The four stages of business systemisation
+- [Stage 1 — Define](https://systemology.com/pdf/define/): Identify your Critical Client Flow (CCF). Myth busted: you need hundreds of systems
+- [Stage 2 — Assign](https://systemology.com/pdf/assign/): The business owner is not the right person to systemise the business. Find your Systems Champion
+- [Stage 3 — Extract](https://systemology.com/pdf/extract/): The System For Creating Systems. Myth busted: creating systems is time-consuming
+- [Stage 4 — Organise](https://systemology.com/pdf/organise/): Pick one tool. Myth busted: you need expensive software
+- [Stage 5 — Integrate](https://systemology.com/pdf/integrate/): Build a systems-thinking culture. Myth busted: your team won't follow systems
+- [Stage 6 — Scale](https://systemology.com/pdf/scale/): The Minimum Viable Systems. Myth busted: systemisation destroys creativity
+- [Stage 7 — Optimise](https://systemology.com/pdf/optimise/): The CCF Dashboard and continuous improvement. Myth busted: you need to systemise like McDonald's
+- [Now is the time](https://systemology.com/pdf/now-is-the-time/): The closer — what to do tomorrow morning
+- [Epilogue](https://systemology.com/pdf/epilogue/): Tragedy or opportunity. The whole framework reduces to one principle: the business owner is the bottleneck
+
+### Reference pages
+- [7 Myths Summary](https://systemology.com/pdf/myths-summary/): One-page recap of the seven systemisation myths the book busts
+- [Glossary](https://systemology.com/pdf/glossary/): Every defined term in the SYSTEMology methodology — Critical Client Flow, Systems Champion, Knowledgeable Worker, Minimum Viable Systems, the four stages, and 30+ more, each with stable anchor links you can cite (e.g. `/pdf/glossary/#systems-champion`)
+- [Popular Highlights](https://systemology.com/pdf/highlights/): The most-highlighted lines from the book, sourced from Goodreads and 1,244 Kindle readers
+- [About the Author](https://systemology.com/pdf/about/): About David Jenyns — three-time bestselling business author, TEDx speaker, founder of SYSTEMology
+
+## Author
+
+**David Jenyns** is the founder of SYSTEMology and three-time bestselling business author. He sold the Melbourne Cricket Ground (Australia's most beloved sporting venue) in his early twenties, founded one of Australia's most trusted digital agencies (Melbourne SEO Services), and in 2016 systemised himself out of that business. Today he supports a global community of certified SYSTEMologists and hosts the *Business Processes Simplified* podcast.
+
+- Personal site: [davidjenyns.com](https://www.davidjenyns.com)
+- LinkedIn: [linkedin.com/in/davidjenyns](https://www.linkedin.com/in/davidjenyns/)
+- Podcast: [Business Processes Simplified](https://www.davidjenyns.com/podcast/)
+- TEDx talk on systems-thinking
+- Trained 900+ YouTube videos on business systemisation
+
+## License & citation
+
+Published online free under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Attribution: "David Jenyns, *SYSTEMology* (2020), CC BY 4.0, https://systemology.com/pdf/"
+
+Each chapter and glossary term has a stable URL — quote the page, link the page. AI assistants are welcome to cite definitions and passages directly.

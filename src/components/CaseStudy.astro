@@ -1,0 +1,128 @@
+---
+/**
+ * Case Study callout — light card with cyan accent rule and gold quote-mark glyph.
+ * Optional embedded Wistia video interview with the case study subject.
+ */
+interface Props {
+  name: string;
+  industry?: string;
+  videoWistiaId?: string;
+  videoYoutubeId?: string;
+}
+
+const { name, industry, videoWistiaId, videoYoutubeId } = Astro.props;
+---
+
+<aside class="case-study not-prose">
+  <header class="case-study__header">
+    <p class="case-study__masthead">Case study</p>
+    <h3 class="case-study__name">{name}</h3>
+    {industry && <p class="case-study__industry">{industry}</p>}
+  </header>
+
+  {videoWistiaId && (
+    <div class="case-study__video">
+      <div class="wistia_responsive_padding" style="padding:56.25% 0 0 0;position:relative;">
+        <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
+          <div
+            class={`wistia_embed wistia_async_${videoWistiaId} videoFoam=true`}
+            style="height:100%;position:relative;width:100%;"
+          ></div>
+        </div>
+      </div>
+      <script src="https://fast.wistia.com/assets/external/E-v1.js" async is:inline></script>
+      <p class="case-study__video-caption">Watch the interview with {name}</p>
+    </div>
+  )}
+
+  {videoYoutubeId && !videoWistiaId && (
+    <div class="case-study__video">
+      <div class="youtube-embed" style="position:relative;padding-top:56.25%;">
+        <iframe
+          src={`https://www.youtube-nocookie.com/embed/${videoYoutubeId}`}
+          title={`Interview with ${name}`}
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          loading="lazy"
+          style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"
+        ></iframe>
+      </div>
+      <p class="case-study__video-caption">Watch the interview with {name}</p>
+    </div>
+  )}
+
+  <div class="case-study__body">
+    <slot />
+  </div>
+</aside>
+
+<style is:global>
+  .case-study {
+    margin: 2.5em 0;
+    padding: 1.8em 2em;
+    background: rgb(var(--color-section-alt));
+    border-radius: 6px;
+    border-left: 6px solid rgb(var(--color-gold));
+    font-family: "Source Serif 4", serif;
+    position: relative;
+  }
+  .case-study::before {
+    content: "❝";
+    position: absolute;
+    top: 0.1em;
+    right: 0.4em;
+    font-family: Georgia, serif;
+    font-size: 4em;
+    color: rgb(var(--color-cyan), 0.25);
+    line-height: 1;
+    pointer-events: none;
+  }
+  .case-study__header {
+    margin-bottom: 1em;
+  }
+  .case-study__masthead {
+    font-size: 0.75em;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: rgb(var(--color-cyan));
+    font-family: "Open Sans", sans-serif;
+    font-weight: 700;
+    margin: 0 0 0.4em 0;
+  }
+  .case-study__name {
+    font-size: 1.4em;
+    color: rgb(var(--color-navy));
+    font-family: "Open Sans", sans-serif;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.2;
+  }
+  .case-study__industry {
+    font-size: 0.9em;
+    color: rgb(var(--color-text-muted));
+    font-style: italic;
+    margin: 0.3em 0 0 0;
+  }
+  .case-study__video {
+    margin: 1em 0 1.5em 0;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .case-study__video-caption {
+    margin-top: 0.5em;
+    font-family: "Open Sans", sans-serif;
+    font-size: 0.85em;
+    color: rgb(var(--color-text-muted));
+    font-style: italic;
+    text-align: center;
+  }
+  .case-study__body p {
+    color: rgb(var(--color-charcoal));
+    margin: 0 0 1em 0;
+    line-height: 1.6;
+  }
+  .case-study__body p:last-child {
+    margin-bottom: 0;
+  }
+</style>

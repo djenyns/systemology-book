@@ -1,0 +1,67 @@
+---
+/**
+ * E-Myth co-citation card for the bottom of the Foreword.
+ * Image of Gerber + Dave is itself the link to the davidjenyns.com legacy article.
+ * Tagline below — pure positioning, no CTA copy.
+ */
+---
+
+<aside class="emyth-card not-prose">
+  <div class="emyth-card__inner">
+    <a
+      href="https://www.davidjenyns.com/michael-gerber-business-systems-legacy/"
+      class="emyth-card__photo"
+      target="_blank"
+      rel="noopener"
+      aria-label="Michael Gerber and David Jenyns — read the article"
+    >
+      <img
+        src="/pdf/brand/gerber-dave.jpg"
+        alt="Michael E. Gerber and David Jenyns"
+        width="960"
+        height="538"
+        loading="lazy"
+      />
+    </a>
+    <p class="emyth-card__tagline">
+      <strong>E-Myth tells you why.<br />SYSTEMology shows you how.</strong>
+    </p>
+  </div>
+</aside>
+
+<style>
+  .emyth-card {
+    margin: 4em 0 2em 0;
+    padding: 2.5em 1em 2em;
+    text-align: center;
+    border-top: 1px solid rgb(var(--color-rule));
+  }
+  .emyth-card__inner {
+    max-width: 540px;
+    margin: 0 auto;
+  }
+  .emyth-card__photo {
+    display: block;
+    margin: 0 auto 1.5em auto;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .emyth-card__photo:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.2);
+  }
+  .emyth-card__photo img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .emyth-card__tagline {
+    font-family: "Open Sans", sans-serif;
+    font-size: 1.15em;
+    line-height: 1.4;
+    color: rgb(var(--color-navy));
+    margin: 0;
+  }
+</style>

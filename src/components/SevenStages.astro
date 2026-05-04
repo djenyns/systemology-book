@@ -1,0 +1,106 @@
+---
+/**
+ * Visual TOC of the 7 SYSTEMology stages — cog illustration + stage name.
+ * Used in Introduction after "Here are the seven stages we'll work through:".
+ */
+const stages = [
+  { num: 1, name: "Define", description: "Identify your Critical Client Flow" },
+  { num: 2, name: "Assign", description: "Find your Systems Champion" },
+  { num: 3, name: "Extract", description: "Capture how the work is done" },
+  { num: 4, name: "Organise", description: "Make systems findable" },
+  { num: 5, name: "Integrate", description: "Get the team using them" },
+  { num: 6, name: "Scale", description: "Build out your MVS" },
+  { num: 7, name: "Optimise", description: "Measure, improve, compound" },
+];
+---
+
+<aside class="seven-stages not-prose">
+  <ol class="seven-stages__grid">
+    {stages.map((s) => (
+      <li class="seven-stages__item">
+        <a href={`/pdf/${s.name.toLowerCase()}/`}>
+          <img
+            src={`/pdf/brand/cogs/stage-0${s.num}.png`}
+            alt={`Stage ${s.num} — ${s.name}`}
+            loading="lazy"
+          />
+          <p class="seven-stages__num">Stage {s.num}</p>
+          <p class="seven-stages__name">{s.name}</p>
+          <p class="seven-stages__desc">{s.description}</p>
+        </a>
+      </li>
+    ))}
+  </ol>
+</aside>
+
+<style is:global>
+  .seven-stages {
+    margin: 2.5em 0 3em 0;
+  }
+  .seven-stages__grid {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1em;
+  }
+  @media (min-width: 600px) {
+    .seven-stages__grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  @media (min-width: 900px) {
+    .seven-stages__grid {
+      grid-template-columns: repeat(7, 1fr);
+      gap: 0.5em;
+    }
+  }
+  .seven-stages__item {
+    margin: 0;
+    text-align: center;
+    background: rgb(var(--color-section-alt));
+    border-radius: 6px;
+    padding: 1em 0.5em;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .seven-stages__item:hover {
+    background: rgb(var(--color-cyan), 0.1);
+    transform: translateY(-2px);
+  }
+  .seven-stages__item a {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+  .seven-stages__item img {
+    width: 70%;
+    max-width: 90px;
+    height: auto;
+    margin: 0 auto 0.6em auto;
+    display: block;
+  }
+  .seven-stages__num {
+    font-size: 0.7em;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: rgb(var(--color-cyan));
+    font-family: "Open Sans", sans-serif;
+    font-weight: 700;
+    margin: 0;
+  }
+  .seven-stages__name {
+    font-size: 1em;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 700;
+    color: rgb(var(--color-navy));
+    margin: 0.2em 0 0.3em 0;
+  }
+  .seven-stages__desc {
+    font-size: 0.78em;
+    color: rgb(var(--color-text-muted));
+    font-style: italic;
+    line-height: 1.3;
+    margin: 0;
+  }
+</style>

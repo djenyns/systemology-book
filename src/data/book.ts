@@ -52,11 +52,30 @@ export type Chapter = {
   realPoint: string; // Seth-Godin-style "what this chapter is really about"
   myth?: string; // for stages 1-7
   audioFile: string; // matches source-assets/audio/Mastered MP3 Files/
+  audioWistiaId?: string; // Wistia hashed_id for the audio chapter (preferred over local MP3)
+  audioNarrator?: string; // override for the audio narrator (default: David Jenyns)
+  videoWistiaId?: string; // Optional inline video at top of chapter (Gerber foreword, Allan Dib endorsement, etc.)
+  videoLabel?: string; // Caption for the inline video
+  cogImage?: string; // Path to per-stage cog illustration (e.g. /pdf/brand/cogs/stage-01.png)
   estReadMinutes: number;
   estAudioMinutes: number;
 };
 
 export const chapters: Chapter[] = [
+  {
+    slug: "foreword",
+    number: null,
+    title: "Foreword",
+    subtitle: "by Michael E. Gerber, author of The E-Myth",
+    realPoint:
+      "Michael Gerber, who invented \"work ON your business, not IN it\" forty-three years ago, says David Jenyns has actually done it — and built the system to teach you how.",
+    // Video covers the audio narration — skip the audio player to avoid redundancy.
+    audioFile: "",
+    videoWistiaId: "fkeues1uxt",
+    videoLabel: "Watch Michael E. Gerber read the foreword",
+    estReadMinutes: 4,
+    estAudioMinutes: 6,
+  },
   {
     slug: "introduction",
     number: null,
@@ -65,6 +84,7 @@ export const chapters: Chapter[] = [
     realPoint:
       "Most business owners are too buried in operations to grab the opportunities life sends them — SYSTEMology is the system that buys back the headspace.",
     audioFile: "003_SYSTEMology_Introduction.mp3",
+    audioWistiaId: "q197pathg6",
     estReadMinutes: 18,
     estAudioMinutes: 28,
   },
@@ -77,6 +97,8 @@ export const chapters: Chapter[] = [
       "You don't need hundreds of systems — you need 10 to 15. Pick one client, one product, and trace the path between them.",
     myth: "You will need to create hundreds of systems to systemise a business.",
     audioFile: "004_SYSTEMology_Step 1 - Define.mp3",
+    audioWistiaId: "2mooy28f0s",
+    cogImage: "/pdf/brand/cogs/stage-01.png",
     estReadMinutes: 26,
     estAudioMinutes: 38,
   },
@@ -89,6 +111,8 @@ export const chapters: Chapter[] = [
       "The knowledge you need is already in your team's heads. Your job is to find it and assign someone else to extract it.",
     myth: "The business owner is the only one who can create the systems.",
     audioFile: "005_SYSTEMology_Step 2 - Assign.mp3",
+    audioWistiaId: "qb72o5vnb8",
+    cogImage: "/pdf/brand/cogs/stage-02.png",
     estReadMinutes: 16,
     estAudioMinutes: 24,
   },
@@ -101,6 +125,8 @@ export const chapters: Chapter[] = [
       "Stop trying to write systems from scratch. Record someone doing the job — that's your first draft.",
     myth: "Creating systems is time-consuming.",
     audioFile: "006_SYSTEMology_Step 3 - Extract.mp3",
+    audioWistiaId: "9qzt16ajpx",
+    cogImage: "/pdf/brand/cogs/stage-03.png",
     estReadMinutes: 22,
     estAudioMinutes: 32,
   },
@@ -113,6 +139,8 @@ export const chapters: Chapter[] = [
       "Systems that aren't accessible aren't systems. Get them out of Google Drive and into one tool everyone uses.",
     myth: "You need to invest in expensive and complex software.",
     audioFile: "007_SYSTEMology_Step 4 - Organise.mp3",
+    audioWistiaId: "62kn9sa0au",
+    cogImage: "/pdf/brand/cogs/stage-04.png",
     estReadMinutes: 18,
     estAudioMinutes: 26,
   },
@@ -125,6 +153,8 @@ export const chapters: Chapter[] = [
       "Documentation only matters if people use it. Build a culture where the system is the default, not the exception.",
     myth: "Even if you have systems in place, your team won't follow them.",
     audioFile: "008_SYSTEMology_Step 5 - Integrate.mp3",
+    audioWistiaId: "nnqaa2q77k",
+    cogImage: "/pdf/brand/cogs/stage-05.png",
     estReadMinutes: 20,
     estAudioMinutes: 30,
   },
@@ -137,6 +167,8 @@ export const chapters: Chapter[] = [
       "Once the Critical Client Flow is documented, the rest is just repetition across the rest of the business.",
     myth: "Systemisation destroys creativity.",
     audioFile: "009_SYSTEMology_Step 6 - Scale.mp3",
+    audioWistiaId: "su2ayn1u4b",
+    cogImage: "/pdf/brand/cogs/stage-06.png",
     estReadMinutes: 22,
     estAudioMinutes: 32,
   },
@@ -149,6 +181,8 @@ export const chapters: Chapter[] = [
       "Once systems run, you measure them. Once you measure them, you improve them. That's the engine.",
     myth: "You need to systemise like McDonald's.",
     audioFile: "010_SYSTEMology_Step 7 - Optimise.mp3",
+    audioWistiaId: "plztueaud9",
+    cogImage: "/pdf/brand/cogs/stage-07.png",
     estReadMinutes: 18,
     estAudioMinutes: 26,
   },
@@ -160,6 +194,7 @@ export const chapters: Chapter[] = [
     realPoint:
       "The question isn't whether to systemise. It's whether you start this week or pretend for another year.",
     audioFile: "011_SYSTEMology_Now Is The Time.mp3",
+    audioWistiaId: "114fx1yy4n",
     estReadMinutes: 12,
     estAudioMinutes: 18,
   },
@@ -171,19 +206,20 @@ export const chapters: Chapter[] = [
     realPoint:
       "The whole framework reduces to one principle: the business owner is the bottleneck. Remove them.",
     audioFile: "012_SYSTEMology_Epilogue.mp3",
+    audioWistiaId: "7noc8d3lm7",
     estReadMinutes: 8,
     estAudioMinutes: 12,
   },
   {
-    slug: "appendix",
+    slug: "myths-summary",
     number: null,
-    title: "Appendix",
-    subtitle: "Templates, sample systems, additional resources",
+    title: "7 Myths Summary",
+    subtitle: "Each myth, and the chapter where it gets busted",
     realPoint:
-      "Print-ready versions of every template referenced in the book, plus the TEDx talk and supplementary material.",
-    audioFile: "013_SYSTEMology_TEDx Talk & Additional Resources.mp3",
-    estReadMinutes: 10,
-    estAudioMinutes: 15,
+      "A one-page recap of the seven systemisation myths the book busts — useful as a quick reference or to share with sceptical team members.",
+    audioFile: "",
+    estReadMinutes: 2,
+    estAudioMinutes: 0,
   },
   {
     slug: "glossary",
@@ -204,6 +240,7 @@ export const chapters: Chapter[] = [
     realPoint:
       "How a Melbourne SEO agency owner accidentally invented a methodology — and why he gave it away.",
     audioFile: "015_SYSTEMology_Acknowledgements.mp3",
+    audioWistiaId: "gard1b8n9e",
     estReadMinutes: 6,
     estAudioMinutes: 10,
   },

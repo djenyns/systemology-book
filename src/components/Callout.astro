@@ -1,0 +1,43 @@
+---
+/**
+ * General-purpose grey callout box. Used for "IMPORTANT NOTE" type meta-asides
+ * that don't belong in a specific chapter-summary or case-study slot.
+ */
+interface Props {
+  variant?: "default" | "warning";
+}
+
+const { variant = "default" } = Astro.props;
+---
+
+<aside class={`callout callout--${variant} not-prose`}>
+  <div class="callout__body">
+    <slot />
+  </div>
+</aside>
+
+<style is:global>
+  .callout {
+    margin: 2em 0;
+    padding: 1.4em 1.8em;
+    background: rgb(var(--color-section-alt));
+    border-radius: 6px;
+    border-left: 4px solid rgb(var(--color-text-muted));
+    font-family: "Source Serif 4", serif;
+  }
+  .callout--warning {
+    border-left-color: rgb(var(--color-gold));
+  }
+  .callout__body p {
+    color: rgb(var(--color-charcoal));
+    margin: 0 0 1em 0;
+    line-height: 1.6;
+  }
+  .callout__body p:last-child {
+    margin-bottom: 0;
+  }
+  .callout__body strong {
+    color: rgb(var(--color-navy));
+    font-weight: 700;
+  }
+</style>

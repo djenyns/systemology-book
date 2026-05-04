@@ -1,0 +1,47 @@
+---
+/**
+ * Inline book illustration / figure.
+ * Used for embedding CCF samples, the 4 Stages pyramid, DRTC chart, etc.
+ */
+interface Props {
+  src: string;
+  alt: string;
+  caption?: string;
+  width?: number;
+  height?: number;
+}
+
+const { src, alt, caption, width, height } = Astro.props;
+---
+
+<figure class="book-figure not-prose">
+  <img
+    src={src}
+    alt={alt}
+    width={width}
+    height={height}
+    loading="lazy"
+  />
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>
+
+<style>
+  .book-figure {
+    margin: 2em auto;
+    text-align: center;
+    max-width: 100%;
+  }
+  .book-figure img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  }
+  .book-figure figcaption {
+    margin-top: 0.7em;
+    font-family: "Open Sans", sans-serif;
+    font-size: 0.85em;
+    color: rgb(var(--color-text-muted));
+    font-style: italic;
+  }
+</style>

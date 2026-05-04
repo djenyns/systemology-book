@@ -1,95 +1,189 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
 import BookSchema from "@components/BookSchema.astro";
-import CitationBlock from "@components/CitationBlock.astro";
 import AudioPlayer from "@components/AudioPlayer.astro";
+import WistiaVideo from "@components/WistiaVideo.astro";
 import { chaptersBySlug, chapters, type Chapter } from "@data/book";
 
 interface Props {
   slug: string;
   description: string;
+  /** Optional list of {id, label} for the in-chapter mini-TOC sidebar.
+   * Manually curated from the chapter's H2s — keeps anchor IDs stable. */
+  sections?: Array<{ id: string; label: string }>;
 }
 
-const { slug, description } = Astro.props;
+const { slug, description, sections = [] } = Astro.props;
 const chapter: Chapter = chaptersBySlug[slug];
 
 if (!chapter) {
   throw new Error(`Unknown chapter slug: ${slug}`);
 }
 
-// Find prev/next in reading order
 const stageOrder = chapters.map((c) => c.slug);
 const idx = stageOrder.indexOf(slug);
-const prev = idx > 0 ? chapters[idx - 1] : null;
 const next = idx < chapters.length - 1 ? chapters[idx + 1] : null;
+const prev = idx > 0 ? chapters[idx - 1] : null;
+
+const masthead = chapter.number !== null
+  ? `Stage ${chapter.number} of 7`
+  : chapter.slug === "introduction"
+    ? "Begin here"
+    : chapter.slug === "foreword"
+      ? "Foreword"
+      : chapter.slug === "now-is-the-time"
+        ? "The closer"
+        : chapter.slug === "epilogue"
+          ? "Epilogue"
+          : chapter.slug === "glossary"
+            ? "Reference"
+            : chapter.slug === "about"
+              ? "Author"
+              : "";
 ---
 
 <BaseLayout title={chapter.title} description={description}>
   <BookSchema slot="schema" chapter={chapter} description={description} />
 
-  <article class="mx-auto max-w-2xl px-4 py-12">
-    <header class="mb-10 not-prose">
-      {chapter.number !== null && (
-        <p class="text-sm font-semibold uppercase tracking-wide text-orange-600">
-          Stage {chapter.number} of 7
-        </p>
-      )}
-      <h1 class="mt-2 text-4xl md:text-5xl font-bold text-brand-navy">
-        {chapter.title}
-      </h1>
-      <p class="mt-3 text-xl text-stone-600 italic">
-        {chapter.subtitle}
-      </p>
-      <div class="mt-4 flex items-center gap-4 text-sm text-stone-500">
-        <span>📖 {chapter.estReadMinutes} min read</span>
-        {chapter.estAudioMinutes > 0 && <span>🎧 {chapter.estAudioMinutes} min audio</span>}
+  <div class="wb">
+    {/* Sticky in-chapter sidebar — Shape Up's killer pattern */}
+    <aside class="wb__sidebar">
+      <div class="intro__content--sticky">
+        {masthead && <p class="intro__masthead">{masthead}</p>}
+        <h2 class="intro__title">{chapter.title}</h2>
+
+        {sections.length > 0 && (
+          <ul class="intro__sections" id="chapter-toc">
+            {sections.map((s) => (
+              <li>
+                <a href={`#${s.id}`} data-anchor={s.id}>{s.label}</a>
+              </li>
+            ))}
+          </ul>
+        )}
+
+        {chapter.cogImage && (
+          <div class="intro__cog">
+            <img src={chapter.cogImage} alt={`Stage ${chapter.number} cog`} loading="lazy" />
+          </div>
+        )}
+
+        {next && (
+          <div class="intro__next">
+            <span class="intro__next-label">Next</span>
+            <a href={`/pdf/${next.slug}/`}>{next.title} →</a>
+          </div>
+        )}
+
+        <div class="intro__nav">
+          {prev && (
+            <p>
+              <a href={`/pdf/${prev.slug}/`}>← Back to {prev.title}</a>
+            </p>
+          )}
+          <p>
+            <a href="/pdf/">↑ Table of Contents</a>
+          </p>
+        </div>
+
+        {!chapter.cogImage && (
+          <a
+            href="https://www.amazon.com/dp/B08CDY993G"
+            class="intro__ad"
+            target="_blank"
+            rel="noopener"
+            aria-label="Get SYSTEMology on Amazon"
+          >
+            <img
+              src="/pdf/brand/amazon-book-ad.jpg"
+              alt="Get SYSTEMology on Amazon"
+              loading="lazy"
+            />
+            <p class="intro__ad-caption">Get the paperback on Amazon →</p>
+          </a>
+        )}
+      </div>
+    </aside>
+
+    {/* Main content */}
+    <article class="wb__content">
+      <header class="chapter__header">
+        {masthead && <p class="chapter__masthead">{masthead}</p>}
+        <h1 class="chapter__title">{chapter.title}</h1>
+
+        {chapter.myth && (
+          <p class="chapter__abstract section-rule">
+            <em>Myth busted:</em> {chapter.myth}
+          </p>
+        )}
+
+        {chapter.videoWistiaId && (
+          <WistiaVideo
+            wistiaId={chapter.videoWistiaId}
+            label={chapter.videoLabel}
+          />
+        )}
+
+        {chapter.audioFile && (
+          <AudioPlayer
+            audioFile={chapter.audioFile}
+            durationMinutes={chapter.estAudioMinutes}
+            wistiaId={chapter.audioWistiaId}
+            narrator={chapter.audioNarrator}
+          />
+        )}
+      </header>
+
+      <div class="chapter__body">
+        <slot />
       </div>
 
-      {chapter.audioFile && (
-        <AudioPlayer
-          audioFile={chapter.audioFile}
-          durationMinutes={chapter.estAudioMinutes}
-        />
-      )}
+      <nav class="chapter__footer-nav">
+        {prev ? (
+          <a href={`/pdf/${prev.slug}/`} class="chapter__footer-link chapter__footer-link--prev">
+            <span class="chapter__footer-label">← Previous</span>
+            <span class="chapter__footer-title">{prev.title}</span>
+          </a>
+        ) : (
+          <span />
+        )}
+        {next ? (
+          <a href={`/pdf/${next.slug}/`} class="chapter__footer-link chapter__footer-link--next">
+            <span class="chapter__footer-label">Next →</span>
+            <span class="chapter__footer-title">{next.title}</span>
+          </a>
+        ) : (
+          <span />
+        )}
+      </nav>
+    </article>
+  </div>
 
-      {chapter.myth && (
-        <aside class="mt-8 rounded-lg border-l-4 border-orange-500 bg-orange-50 p-4">
-          <p class="text-xs font-semibold uppercase tracking-wide text-orange-700">
-            Myth busted
-          </p>
-          <p class="mt-1 text-base text-brand-navy">{chapter.myth}</p>
-        </aside>
-      )}
-    </header>
+  {/* Mini-TOC active-section highlighter — IntersectionObserver, no deps */}
+  {sections.length > 0 && (
+    <script is:inline>
+      (() => {
+        const links = document.querySelectorAll("#chapter-toc a[data-anchor]");
+        const map = new Map();
+        links.forEach((a) => {
+          const id = a.dataset.anchor;
+          const target = document.getElementById(id);
+          if (target) map.set(target, a);
+        });
 
-    <div class="prose prose-lg prose-stone max-w-none prose-headings:font-display prose-headings:text-brand-navy prose-a:text-orange-600">
-      <slot />
-    </div>
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            const a = map.get(entry.target);
+            if (!a) return;
+            if (entry.isIntersecting) {
+              links.forEach((l) => l.classList.remove("is-active"));
+              a.classList.add("is-active");
+            }
+          });
+        }, { rootMargin: "-30% 0px -60% 0px" });
 
-    <CitationBlock chapter={chapter} />
-
-    <nav class="mt-12 flex items-center justify-between border-t border-stone-200 pt-6 not-prose">
-      {prev ? (
-        <a href={`/pdf/${prev.slug}/`} class="group">
-          <p class="text-xs uppercase tracking-wide text-stone-500">← Previous</p>
-          <p class="text-base font-semibold text-brand-navy group-hover:text-orange-600">
-            {prev.title}
-          </p>
-        </a>
-      ) : <span />}
-
-      <a href="/pdf/" class="text-sm text-stone-500 hover:text-orange-600">
-        ↑ Table of Contents
-      </a>
-
-      {next ? (
-        <a href={`/pdf/${next.slug}/`} class="text-right group">
-          <p class="text-xs uppercase tracking-wide text-stone-500">Next →</p>
-          <p class="text-base font-semibold text-brand-navy group-hover:text-orange-600">
-            {next.title}
-          </p>
-        </a>
-      ) : <span />}
-    </nav>
-  </article>
+        map.forEach((_, target) => observer.observe(target));
+      })();
+    </script>
+  )}
 </BaseLayout>

@@ -1,0 +1,326 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { book } from "@data/book";
+
+const description =
+  "The most-highlighted lines from SYSTEMology by David Jenyns — the passages real readers chose to save. Curated from Goodreads and reader reviews.";
+
+// 22 verbatim pull-quotes from the book — sourced from research/07-amazon-mining.md
+// Goodreads "Popular Quotes" + 1,244-Kindle-highlighter aggregate signal.
+const highlights = [
+  {
+    tier: 1,
+    text: "Just 20 per cent of the systems you create will provide 80 per cent of your efficiency wins.",
+    chapter: "Define",
+    slug: "define",
+  },
+  {
+    tier: 1,
+    text: "Business is simply a game of problem-solving.",
+    chapter: "Optimise",
+    slug: "optimise",
+  },
+  {
+    tier: 1,
+    text: "Systems development is a bit like eating an elephant: you have to do it one bite at a time.",
+    chapter: "Optimise",
+    slug: "optimise",
+  },
+  {
+    tier: 1,
+    text: "Having worked with hundreds of companies over the years, I have found companies typically find themselves in one of four stages: #1 Survival; #2 Stationary; #3 Scalable; #4 Saleable.",
+    chapter: "Introduction",
+    slug: "introduction",
+  },
+  {
+    tier: 1,
+    text: "Start by systemising based on where you are, not where you'd like to be.",
+    chapter: "Define",
+    slug: "define",
+  },
+  {
+    tier: 2,
+    text: "It's simply a matter of identifying problems as they arise, prioritising them and then looking for a systems-centred solution.",
+    chapter: "Optimise",
+    slug: "optimise",
+  },
+  {
+    tier: 2,
+    text: "Most business owners are great at solving problems, it's just that many get stuck solving low-quality problems over and over again.",
+    chapter: "Optimise",
+    slug: "optimise",
+  },
+  {
+    tier: 2,
+    text: "You don't need to measure everything. In fact, focusing on too many numbers tends to do more harm than good.",
+    chapter: "Optimise",
+    slug: "optimise",
+  },
+  {
+    tier: 2,
+    text: "The ultimate goal of SYSTEMology: complete business reliability.",
+    chapter: "Introduction",
+    slug: "introduction",
+  },
+  {
+    tier: 2,
+    text: "The secret to ensuring your business develops a culture where systems are not just created, but actually used, is to introduce some level of accountability.",
+    chapter: "Integrate",
+    slug: "integrate",
+  },
+  {
+    tier: 3,
+    text: "I just want to focus on two tools and what I believe you need to build a truly successful systems-centred business: 1) Systems management software, 2) Project management software.",
+    chapter: "Organise",
+    slug: "organise",
+  },
+  {
+    tier: 3,
+    text: "It's also probably unrealistic — and unnecessary — to ask your employees to reread the entire system every time they complete their tasks. That's where your project management software steps in.",
+    chapter: "Organise",
+    slug: "organise",
+  },
+  {
+    tier: 3,
+    text: "The CCF focuses on the specific objective of having the business make money without being dependent on any one specific team member.",
+    chapter: "Define",
+    slug: "define",
+  },
+  {
+    tier: 3,
+    text: "I also suggest getting clear on the qualities your team members need to have to succeed within your business and building that into your recruitment process.",
+    chapter: "Scale",
+    slug: "scale",
+  },
+  {
+    tier: 4,
+    text: "Success is lumpy and opportunity knocks when you're least expecting it.",
+    chapter: "Introduction",
+    slug: "introduction",
+  },
+  {
+    tier: 4,
+    text: "Play to your team's strengths and do everything in your power to make it easier for them to do their best work.",
+    chapter: "Extract",
+    slug: "extract",
+  },
+  {
+    tier: 4,
+    text: "Fix your team communications and you'll solve 80 per cent of your problems.",
+    chapter: "Organise",
+    slug: "organise",
+  },
+  {
+    tier: 4,
+    text: "Your business as a system is only as strong as its weakest link.",
+    chapter: "Optimise",
+    slug: "optimise",
+  },
+  {
+    tier: 4,
+    text: "Small gains, when multiplied out, equal big wins on the bottom line.",
+    chapter: "Now is the time",
+    slug: "now-is-the-time",
+  },
+  {
+    tier: 4,
+    text: "Systems-run businesses are always worth more because they function without key person dependency. They're more efficient, more reliable, and scalable.",
+    chapter: "Organise",
+    slug: "organise",
+  },
+  {
+    tier: 4,
+    text: "Systems really do set you free.",
+    chapter: "Scale",
+    slug: "scale",
+    attribution: "Den Lennie, in the Scale chapter case study",
+  },
+];
+---
+
+<BaseLayout title="Popular Highlights" description={description}>
+  <Fragment slot="schema">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "Popular Highlights from SYSTEMology",
+      "description": description,
+      "url": "https://systemology.com/pdf/highlights/",
+      "isPartOf": {
+        "@type": "Book",
+        "name": book.title,
+        "author": { "@type": "Person", "name": book.author.name },
+        "isbn": book.isbn13,
+        "url": book.canonicalUrl,
+      },
+      "about": {
+        "@type": "Book",
+        "name": book.title,
+        "author": { "@type": "Person", "name": book.author.name },
+      },
+      "license": book.license,
+    })}></script>
+  </Fragment>
+
+  <article class="highlights">
+    <header class="highlights__header">
+      <p class="highlights__masthead">Most-highlighted by readers</p>
+      <h1 class="highlights__title">Popular Highlights</h1>
+      <p class="highlights__intro">
+        The lines real readers chose to save. <strong>1,244 Kindle readers</strong> have highlighted
+        passages in <em>SYSTEMology</em>. These are the most-saved on Goodreads — sorted by how
+        widely-quoted they are.
+      </p>
+      <p class="highlights__bookraves">
+        Want to read full reviews from business leaders? <a
+          href="https://www.systemology.com/book-raves/"
+          target="_blank"
+          rel="noopener">Browse 60+ endorsements →</a>
+      </p>
+    </header>
+
+    <ol class="highlights__list">
+      {highlights.map((h, i) => (
+        <li class="highlight">
+          <span class="highlight__num">{String(i + 1).padStart(2, "0")}</span>
+          <blockquote class="highlight__quote" itemscope itemtype="https://schema.org/Quotation">
+            <p itemprop="text">{h.text}</p>
+            <cite>
+              <a href={`/pdf/${h.slug}/`}>
+                Chapter — {h.chapter}
+                {h.attribution && <span class="highlight__attribution"> · {h.attribution}</span>}
+              </a>
+            </cite>
+          </blockquote>
+        </li>
+      ))}
+    </ol>
+
+    <footer class="highlights__footer">
+      <p>
+        These are publicly-saved highlights. <em>SYSTEMology</em> is published under <a
+          href={book.license}
+          rel="license">CC BY 4.0</a> — you're free to quote and share with attribution.
+      </p>
+      <p>
+        <a href="/pdf/" class="btn-secondary">↑ Back to Table of Contents</a>
+      </p>
+    </footer>
+  </article>
+</BaseLayout>
+
+<style>
+  .highlights {
+    max-width: 42rem;
+    margin: 0 auto;
+    padding: 4em 1.5em 3em;
+  }
+  .highlights__header {
+    margin-bottom: 3em;
+    text-align: center;
+  }
+  .highlights__masthead {
+    font-size: 0.85em;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: rgb(var(--color-cyan));
+    font-family: "Open Sans", sans-serif;
+    font-weight: 700;
+    margin: 0 0 0.5em 0;
+  }
+  .highlights__title {
+    font-size: clamp(2em, 5vw, 3em);
+    color: rgb(var(--color-navy));
+    margin: 0 0 1em 0;
+    line-height: 1.1;
+  }
+  .highlights__intro {
+    font-size: 1.1em;
+    line-height: 1.5;
+    color: rgb(var(--color-text));
+    max-width: 36em;
+    margin: 0 auto 1em auto;
+  }
+  .highlights__intro strong {
+    color: rgb(var(--color-navy));
+  }
+  .highlights__bookraves {
+    font-size: 0.95em;
+    color: rgb(var(--color-text-muted));
+    font-family: "Open Sans", sans-serif;
+  }
+  .highlights__bookraves a {
+    color: rgb(var(--color-cyan));
+    font-weight: 600;
+  }
+
+  .highlights__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    counter-reset: highlight-counter;
+  }
+  .highlight {
+    display: grid;
+    grid-template-columns: 3em 1fr;
+    gap: 1.2em;
+    padding: 2em 0;
+    border-top: 1px solid rgb(var(--color-rule));
+  }
+  .highlight:first-child { border-top: 0; }
+  .highlight__num {
+    font-family: "Open Sans", sans-serif;
+    font-size: 0.85em;
+    color: rgb(var(--color-cyan));
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    padding-top: 0.6em;
+  }
+  .highlight__quote {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-style: normal;
+  }
+  .highlight__quote p {
+    font-family: "Source Serif 4", serif;
+    font-size: 1.2em;
+    line-height: 1.5;
+    color: rgb(var(--color-navy));
+    margin: 0 0 0.7em 0;
+    font-style: italic;
+  }
+  .highlight__quote cite {
+    font-style: normal;
+    font-size: 0.85em;
+    font-family: "Open Sans", sans-serif;
+    color: rgb(var(--color-text-muted));
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .highlight__quote cite a {
+    color: rgb(var(--color-text-muted));
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .highlight__quote cite a:hover {
+    color: rgb(var(--color-cyan));
+  }
+  .highlight__attribution {
+    text-transform: none;
+    letter-spacing: normal;
+    font-style: italic;
+  }
+
+  .highlights__footer {
+    margin-top: 4em;
+    padding-top: 2em;
+    border-top: 1px solid rgb(var(--color-rule));
+    text-align: center;
+  }
+  .highlights__footer p {
+    color: rgb(var(--color-text-muted));
+    font-size: 0.95em;
+    margin: 0.5em 0;
+  }
+</style>

@@ -1,80 +1,490 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
 import BookSchema from "@components/BookSchema.astro";
-import CitationBlock from "@components/CitationBlock.astro";
-import { book, chapters, stageChapters } from "@data/book";
+import { book, chapters } from "@data/book";
 
 const description =
-  "Read the full SYSTEMology book free online. The seven-step framework for systemising your business — Define, Assign, Extract, Organise, Integrate, Scale, Optimise. By David Jenyns. Free under CC BY 4.0.";
+  "Read SYSTEMology free online. The seven-step framework — Define, Assign, Extract, Organise, Integrate, Scale, Optimise — for systemising any business and freeing the owner from daily operations. Full book by David Jenyns under CC BY 4.0.";
+
+// Reader photos — staged in /public/photos/readers/
+const readerPhotos = [
+  { file: "allan-dib.jpg", name: "Allan Dib" },
+  { file: "andrew-griffiths.jpg", name: "Andrew Griffiths" },
+  { file: "dale-beaumont.jpg", name: "Dale Beaumont" },
+  { file: "dr-sabrina.jpg", name: "Dr Sabrina" },
+  { file: "esther-anderson.jpg", name: "Esther Anderson" },
+  { file: "jurgen-strauss.jpg", name: "Jurgen Strauss" },
+  { file: "meryl-bean-ninjas.jpg", name: "Meryl, Bean Ninjas" },
+  { file: "mike-ohagan.jpg", name: "Mike O'Hagan" },
+  { file: "pete-williams.jpg", name: "Pete Williams" },
+  { file: "simon-bowen.jpg", name: "Simon Bowen" },
+  { file: "peter-butler.jpg", name: "Peter Butler" },
+  { file: "tim-hyde.jpg", name: "Tim Hyde" },
+];
 ---
 
 <BaseLayout title={book.title} description={description}>
   <BookSchema slot="schema" description={description} />
 
-  <article class="mx-auto max-w-3xl px-4 py-12">
-    <header class="text-center mb-12">
-      <p class="text-sm font-semibold uppercase tracking-wide text-orange-600">
-        The complete book — free online
-      </p>
-      <h1 class="mt-3 text-5xl md:text-6xl font-bold text-brand-navy">
-        {book.title}
-      </h1>
-      <p class="mt-4 text-xl text-stone-700 max-w-2xl mx-auto">
-        {book.subtitle}
-      </p>
-      <p class="mt-3 text-stone-500">
-        by <a href={book.author.url} class="underline">{book.author.name}</a>
-      </p>
-      <div class="mt-6 flex flex-wrap justify-center gap-3 text-sm">
-        <a
-          href={book.amazonUrl}
-          class="rounded-md border border-stone-300 bg-white px-4 py-2 hover:border-orange-500 hover:text-orange-600"
-        >Get on Kindle / Paperback</a>
-        <a
-          href={book.audibleUrl}
-          class="rounded-md border border-stone-300 bg-white px-4 py-2 hover:border-orange-500 hover:text-orange-600"
-        >Listen on Audible</a>
+  <section class="hub-hero">
+    <div class="hub-hero__inner">
+      <div class="hub-hero__text">
+        <p class="hub-hero__masthead">The complete book — free online</p>
+        <h1 class="hub-hero__title">{book.title}</h1>
+        <p class="hub-hero__subtitle">{book.subtitle}</p>
+        <p class="hub-hero__author">
+          by <a href={book.author.url}>{book.author.name}</a>
+        </p>
+
+        <div class="hub-hero__buttons">
+          <a href={`/pdf/${chapters[0].slug}/`} class="btn-cta">Start reading →</a>
+        </div>
+        <p class="hub-hero__alt-formats">Prefer print or audio?</p>
+        <div class="hub-hero__shop-logos">
+          <a href={book.amazonUrl} target="_blank" rel="noopener" aria-label="Get the paperback on Amazon">
+            <img src="/pdf/brand/shop-amazon.svg" alt="Buy on Amazon" loading="lazy" />
+          </a>
+          <a href={book.audibleUrl} target="_blank" rel="noopener" aria-label="Listen on Audible">
+            <img src="/pdf/brand/shop-audible.svg" alt="Listen on Audible" loading="lazy" />
+          </a>
+        </div>
       </div>
-    </header>
 
-    <section class="mb-12 rounded-lg bg-white p-6 border border-stone-200">
-      <p class="text-stone-700 leading-relaxed">
-        SYSTEMology is the step-by-step framework for taking yourself out of the
-        daily grind of your business. Across seven stages — Define, Assign, Extract,
-        Organise, Integrate, Scale, Optimise — you'll move from owner-dependent
-        chaos to a business that runs without you.
-      </p>
-      <p class="mt-3 text-stone-700 leading-relaxed">
-        The full book is published here, free, under <a
-          href={book.license}
-          rel="license"
-          class="underline">{book.licenseShort}</a>. Read it. Quote it. Share it.
-        Translate it. The only ask is attribution.
-      </p>
-    </section>
+      <div class="hub-hero__cover">
+        <img
+          src="/pdf/brand/systemology-book-cover.png"
+          alt="SYSTEMology book cover"
+          width="840"
+          height="1195"
+          loading="eager"
+        />
+        <div class="hub-hero__trust">
+          <span class="hub-hero__trust-badge">#1 Best Seller</span>
+          <span class="hub-hero__trust-rating">★ Rated 4.6/5</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <section class="mb-12">
-      <h2 class="text-2xl font-bold text-brand-navy mb-6">Read the book</h2>
-      <ol class="space-y-3">
-        {chapters.map((c, i) => (
-          <li class="border border-stone-200 rounded-lg p-4 bg-white hover:border-orange-500 transition-colors">
-            <a href={`/pdf/${c.slug}/`} class="flex items-baseline justify-between gap-4 no-underline">
-              <div>
-                <p class="text-xs uppercase tracking-wide text-stone-500">
-                  {c.number !== null ? `Stage ${c.number}` : i === 0 ? "Begin here" : ""}
-                </p>
-                <p class="text-lg font-semibold text-brand-navy">{c.title}</p>
-                <p class="text-sm text-stone-600 mt-1">{c.subtitle}</p>
-              </div>
-              <p class="text-xs text-stone-400 whitespace-nowrap">
-                {c.estReadMinutes} min
+  <article class="hub">
+    <section class="hub__toc">
+      <h2 class="hub__toc-title">Table of contents</h2>
+
+      <p class="hub__abstract section-rule">
+        <em>The seven-step system to systemise your business and finally build a business that works without you.
+        Identify your most critical systems. Extract the knowledge already in your team's heads. Organise it.
+        Integrate it. Scale it. Optimise it.</em>
+      </p>
+
+      <ol class="hub__chapter-list">
+        {chapters.map((c) => (
+          <li class="hub__chapter">
+            <a href={`/pdf/${c.slug}/`}>
+              <p class="hub__chapter-masthead">
+                {c.number !== null
+                  ? `Stage ${c.number}`
+                  : c.slug === "introduction"
+                    ? "Begin here"
+                    : c.slug === "glossary"
+                      ? "Reference"
+                      : c.slug === "about"
+                        ? "Author"
+                        : ""}
               </p>
+              <p class="hub__chapter-title">{c.title}</p>
+              <p class="hub__chapter-subtitle">{c.subtitle}</p>
             </a>
           </li>
         ))}
+        <li class="hub__chapter">
+          <a href="/pdf/highlights/">
+            <p class="hub__chapter-masthead">Extra</p>
+            <p class="hub__chapter-title">Popular Highlights</p>
+            <p class="hub__chapter-subtitle">The most-quoted lines from the book</p>
+          </a>
+        </li>
+        <li class="hub__chapter">
+          <a href="https://www.systemology.com/book-raves/" target="_blank" rel="noopener">
+            <p class="hub__chapter-masthead">Extra</p>
+            <p class="hub__chapter-title">Praise &amp; Reviews ↗</p>
+            <p class="hub__chapter-subtitle">60+ endorsements from business owners and authors</p>
+          </a>
+        </li>
       </ol>
     </section>
 
-    <CitationBlock />
+    <section class="hub__overview">
+      <p class="hub__overview-masthead">A 5-minute overview</p>
+      <h2 class="hub__overview-title">What is SYSTEMology?</h2>
+      <div class="hub__overview-video">
+        <div class="wistia_responsive_padding" style="padding:56.25% 0 0 0;position:relative;">
+          <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
+            <div
+              class="wistia_embed wistia_async_u1gjsvndgx videoFoam=true"
+              style="height:100%;position:relative;width:100%;"
+            ></div>
+          </div>
+        </div>
+        <script src="https://fast.wistia.com/assets/external/E-v1.js" async is:inline></script>
+      </div>
+    </section>
+
+    <section class="hub__readers">
+      <p class="hub__readers-masthead">In good company</p>
+      <h2 class="hub__readers-title">Read by business leaders worldwide</h2>
+      <div class="hub__readers-grid">
+        {readerPhotos.map((p) => (
+          <figure class="hub__reader">
+            <img src={`/pdf/photos/readers/${p.file}`} alt={`${p.name} with the SYSTEMology book`} loading="lazy" />
+            <figcaption>{p.name}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </section>
   </article>
 </BaseLayout>
+
+<style>
+  /* Hub hero — two-column with cover image, brand-aligned navy bleed */
+  .hub-hero {
+    background: rgb(var(--color-navy));
+    color: rgb(var(--color-white));
+    padding: 4em 2em 4em;
+    border-bottom: 4px solid rgb(var(--color-cyan));
+  }
+  .hub-hero__inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5em;
+    align-items: center;
+  }
+  @media (min-width: 800px) {
+    .hub-hero__inner {
+      grid-template-columns: 1.3fr 1fr;
+      gap: 3em;
+    }
+  }
+  .hub-hero__text {
+    text-align: center;
+  }
+  @media (min-width: 800px) {
+    .hub-hero__text { text-align: left; }
+  }
+  .hub-hero__masthead {
+    font-size: 0.8em;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: rgb(var(--color-cyan));
+    font-family: "Open Sans", sans-serif;
+    font-weight: 700;
+    margin: 0 0 1em 0;
+  }
+  .hub-hero__title {
+    font-size: clamp(2.5em, 6vw, 4em);
+    color: rgb(var(--color-white));
+    margin: 0;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+  .hub-hero__subtitle {
+    font-size: clamp(1.05em, 1.6vw, 1.25em);
+    line-height: 1.45;
+    margin: 0.7em 0 0;
+    max-width: 28em;
+    color: rgba(255, 255, 255, 0.9);
+    font-family: "Source Serif 4", serif;
+    font-style: italic;
+    text-wrap: balance;
+    text-wrap: pretty;
+  }
+  @media (min-width: 800px) {
+    .hub-hero__subtitle { margin-left: 0; }
+  }
+  .hub-hero__author {
+    margin: 1.2em 0 0;
+    color: rgba(255, 255, 255, 0.8);
+    font-family: "Open Sans", sans-serif;
+  }
+  .hub-hero__author a { color: rgb(var(--color-cyan)); }
+  .hub-hero__author a:hover { color: rgb(var(--color-white)); }
+
+  .hub-hero__trust {
+    margin-top: 1.2em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4em;
+    align-items: center;
+    font-family: "Open Sans", sans-serif;
+    text-align: center;
+  }
+  .hub-hero__trust-badge {
+    display: inline-block;
+    background: rgb(var(--color-gold));
+    color: rgb(var(--color-navy));
+    padding: 0.3em 0.8em;
+    border-radius: 3px;
+    font-size: 0.85em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .hub-hero__trust-rating {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.95em;
+    font-style: italic;
+  }
+
+  .hub-hero__buttons {
+    margin-top: 1.6em;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75em;
+    justify-content: center;
+  }
+  @media (min-width: 800px) {
+    .hub-hero__buttons { justify-content: flex-start; }
+  }
+  .hub-hero__cover {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5em;
+  }
+  .hub-hero__cover img {
+    max-width: 210px;
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.5));
+    transform: rotate(-3deg);
+    transition: transform 0.4s ease;
+  }
+  .hub-hero__cover img:hover {
+    transform: rotate(0deg) scale(1.03);
+  }
+  @media (min-width: 800px) {
+    .hub-hero__cover img {
+      max-width: 240px;
+    }
+  }
+
+  .hub-hero__alt-formats {
+    margin: 1.2em 0 0;
+    font-family: "Open Sans", sans-serif;
+    font-size: 0.9em;
+    color: rgba(255, 255, 255, 0.65);
+  }
+  .hub-hero__alt-formats a {
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: underline;
+    text-decoration-color: rgba(97, 198, 234, 0.5);
+    text-underline-offset: 3px;
+  }
+  .hub-hero__alt-formats a:hover {
+    color: rgb(var(--color-cyan));
+    text-decoration-color: rgb(var(--color-cyan));
+  }
+
+  /* Body */
+  .hub {
+    max-width: 56rem;
+    margin: 0 auto;
+    padding: 4em 1.5em 2em;
+  }
+
+  .hub__abstract {
+    font-size: 1.2em;
+    line-height: 1.5;
+    margin: 0 auto 3em auto;
+    max-width: 42rem;
+    color: rgb(var(--color-text));
+  }
+
+  .hub__toc {
+    max-width: 42rem;
+    margin: 0 auto;
+  }
+  .hub__toc-masthead {
+    font-size: 0.8em;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: rgb(var(--color-cyan));
+    font-family: "Open Sans", sans-serif;
+    font-weight: 700;
+    margin: 0 0 0.5em 0;
+  }
+  .hub__toc-title {
+    font-size: 1.8em;
+    margin: 0 0 1.5em 0;
+    color: rgb(var(--color-navy));
+    font-family: "Open Sans", sans-serif;
+    font-weight: 700;
+  }
+
+  .hub__chapter-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .hub__chapter {
+    margin: 0;
+    border-top: 1px solid rgb(var(--color-rule));
+  }
+  .hub__chapter:first-child { border-top: 0; }
+
+  .hub__chapter a {
+    display: block;
+    padding: 1.4em 0;
+    text-decoration: none;
+    color: inherit;
+    transition: padding 0.2s;
+    position: relative;
+  }
+  .hub__chapter a::before {
+    content: "";
+    position: absolute;
+    left: -1.5em;
+    top: 50%;
+    width: 4px;
+    height: 0;
+    background: rgb(var(--color-cyan));
+    transition: height 0.2s, transform 0.2s;
+    transform: translateY(-50%);
+  }
+  .hub__chapter a:hover { padding-left: 0.5em; }
+  .hub__chapter a:hover::before { height: 60%; }
+  .hub__chapter a:hover .hub__chapter-title { color: rgb(var(--color-cyan)); }
+
+  .hub__chapter-masthead {
+    font-size: 0.7em;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: rgb(var(--color-cyan));
+    font-family: "Open Sans", sans-serif;
+    font-weight: 700;
+    margin: 0;
+    min-height: 1em;
+  }
+
+  .hub__chapter-title {
+    font-size: 1.5em;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 700;
+    color: rgb(var(--color-navy));
+    margin: 0.2em 0 0.2em 0;
+    transition: color 0.2s;
+  }
+
+  .hub__chapter-subtitle {
+    font-style: italic;
+    color: rgb(var(--color-text-muted));
+    margin: 0;
+    line-height: 1.4;
+    font-size: 0.95em;
+  }
+
+  /* Book overview video */
+  .hub__overview {
+    margin-top: 5em;
+    text-align: center;
+  }
+  .hub__overview-masthead {
+    font-size: 0.8em;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: rgb(var(--color-cyan));
+    font-family: "Open Sans", sans-serif;
+    font-weight: 700;
+    margin: 0 0 0.5em 0;
+  }
+  .hub__overview-title {
+    font-size: 1.6em;
+    margin: 0 0 1.5em 0;
+    color: rgb(var(--color-navy));
+    font-family: "Open Sans", sans-serif;
+    font-weight: 700;
+  }
+  .hub__overview-video {
+    max-width: 720px;
+    margin: 0 auto;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  }
+
+  /* Reader photos collage */
+  .hub__readers {
+    margin-top: 5em;
+    text-align: center;
+  }
+  .hub__readers-masthead {
+    font-size: 0.8em;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: rgb(var(--color-cyan));
+    font-family: "Open Sans", sans-serif;
+    font-weight: 700;
+    margin: 0 0 0.5em 0;
+  }
+  .hub__readers-title {
+    font-size: 1.6em;
+    margin: 0 0 1.5em 0;
+    color: rgb(var(--color-navy));
+    font-family: "Open Sans", sans-serif;
+    font-weight: 700;
+  }
+  .hub__readers-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75em;
+  }
+  @media (min-width: 600px) {
+    .hub__readers-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  @media (min-width: 900px) {
+    .hub__readers-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  .hub__reader {
+    margin: 0;
+    aspect-ratio: 1;
+    overflow: hidden;
+    border-radius: 4px;
+    background: rgb(var(--color-section-alt));
+    position: relative;
+    transition: transform 0.2s;
+  }
+  .hub__reader:hover {
+    transform: scale(1.02);
+  }
+  .hub__reader img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .hub__reader figcaption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0.4em 0.6em;
+    background: linear-gradient(to top, rgba(8, 29, 61, 0.85), transparent);
+    color: rgb(var(--color-white));
+    font-size: 0.8em;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 600;
+    text-align: left;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .hub__reader:hover figcaption {
+    opacity: 1;
+  }
+</style>

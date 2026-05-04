@@ -12,8 +12,20 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
+
+/**
+ * Sidebar mini-TOC sections per chapter — manually curated for stable anchors.
+ * Each chapter's MDX must use the same H2 IDs that appear here.
+ */
+const sectionsBySlug: Record<string, Array<{ id: string; label: string }>> = {};
+
+const sections = sectionsBySlug[entry.data.slug] ?? [];
 ---
 
-<ChapterLayout slug={entry.data.slug} description={entry.data.description}>
+<ChapterLayout
+  slug={entry.data.slug}
+  description={entry.data.description}
+  sections={sections}
+>
   <Content />
 </ChapterLayout>
