@@ -42,10 +42,10 @@ const readerPhotos = [
         <p class="hub-hero__alt-formats">Prefer print or audio?</p>
         <div class="hub-hero__shop-logos">
           <a href={book.amazonUrl} target="_blank" rel="noopener" aria-label="Get the paperback on Amazon">
-            <img src="/pdf/brand/shop-amazon.svg" alt="Buy on Amazon" loading="lazy" />
+            <img src="/pdf/brand/shop-amazon.svg" alt="Buy on Amazon" loading="lazy" width="180" height="44" />
           </a>
           <a href={book.audibleUrl} target="_blank" rel="noopener" aria-label="Listen on Audible">
-            <img src="/pdf/brand/shop-audible.svg" alt="Listen on Audible" loading="lazy" />
+            <img src="/pdf/brand/shop-audible.svg" alt="Listen on Audible" loading="lazy" width="180" height="44" />
           </a>
         </div>
       </div>
@@ -54,9 +54,10 @@ const readerPhotos = [
         <img
           src="/pdf/brand/systemology-book-cover.png"
           alt="SYSTEMology book cover"
-          width="840"
-          height="1195"
+          width="736"
+          height="1047"
           loading="eager"
+          fetchpriority="high"
         />
         <div class="hub-hero__trust">
           <span class="hub-hero__trust-badge">#1 Best Seller</span>
