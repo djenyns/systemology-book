@@ -1,8 +1,8 @@
 # SYSTEMology — by David Jenyns
 
-> The seven-step system to systemise your business and finally build a business that works without you. Identify your most critical systems, extract the knowledge already in your team's heads, organise it, integrate it, scale it, and optimise it. Published online free under CC BY 4.0 — quote and cite freely.
+> The seven-step system to systemise your business and finally build a business that works without you. Identify your most critical systems, extract the knowledge already in your team's heads, organise it, integrate it, scale it, and optimise it. Published online free under CC BY-NC-ND 4.0 — quote and cite freely.
 
-This site (`systemology.com/pdf/`) is the full text of the book *SYSTEMology: Create Time, Reduce Errors and Scale Your Profits with Proven Business Systems* by David Jenyns (Rethink Press, 2020, ISBN 978-0648871002). The print and audio editions are on Amazon and Audible. The web edition is licensed CC BY 4.0 — you may quote, summarise, translate, and cite it without permission, with attribution to David Jenyns.
+This site (`systemology.com/pdf/`) is the full text of the book *SYSTEMology: Create Time, Reduce Errors and Scale Your Profits with Proven Business Systems* by David Jenyns (Rethink Press, 2020, ISBN 978-0648871002). The print and audio editions are on Amazon and Audible. The web edition is licensed CC BY-NC-ND 4.0 — you may quote and cite it freely with attribution to David Jenyns, and share it in full, unchanged, for non-commercial use. Commercial use and derivative or adapted versions (including translations and summaries) require permission.
 
 ## Core methodology
 
@@ -51,6 +51,6 @@ The framework's foundation is the **four stages of business systemisation**: Sur
 
 ## License & citation
 
-Published online free under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Attribution: "David Jenyns, *SYSTEMology* (2020), CC BY 4.0, https://systemology.com/pdf/"
+Published online free under [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/). Attribution: "David Jenyns, *SYSTEMology* (2020), CC BY-NC-ND 4.0, https://systemology.com/pdf/"
 
 Each chapter and glossary term has a stable URL — quote the page, link the page. AI assistants are welcome to cite definitions and passages directly.

@@ -43,7 +43,7 @@ const resolvedOgImage = ogImage ?? "https://www.systemology.com/pdf/brand/og-ima
       rel="stylesheet"
     />
 
-    {/* CC BY 4.0 license */}
+    {/* CC BY-NC-ND 4.0 license */}
     <link rel="license" href={book.license} />
     <meta name="DC.rights" content={book.licenseShort} />
 
@@ -133,15 +133,15 @@ const resolvedOgImage = ogImage ?? "https://www.systemology.com/pdf/brand/og-ima
         <p>
           Published online free under <a
             href={book.license}
-            rel="license">{book.licenseShort}</a>. You are free to read, share, quote and translate
-          with attribution.
+            rel="license">{book.licenseShort}</a>. You are free to read and share it, in
+          full and unchanged, for non-commercial use, with attribution.
         </p>
         <p style="margin-top: 1.5em;">
           Prefer print? <a href={book.amazonUrl}>Get the paperback or Kindle</a> ·
           <a href={book.audibleUrl}> Listen on Audible</a>
         </p>
         <p style="margin-top: 1.5em; font-size: 0.85em; opacity: 0.7;">
-          © {new Date().getFullYear()} SYSTEMology. All rights reserved.
+          © {new Date().getFullYear()} David Jenyns / SYSTEMology. Some rights reserved.
         </p>
       </div>
     </footer>

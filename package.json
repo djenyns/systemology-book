@@ -1,7 +1,7 @@
 {
   "name": "systemology-book",
   "version": "1.0.0",
-  "description": "Free online interactive edition of SYSTEMology by David Jenyns. CC BY 4.0.",
+  "description": "Free online interactive edition of SYSTEMology by David Jenyns. CC BY-NC-ND 4.0.",
   "type": "module",
   "scripts": {
     "dev": "astro dev",
