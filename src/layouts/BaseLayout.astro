@@ -145,5 +145,37 @@ const resolvedOgImage = ogImage ?? "https://www.systemology.com/pdf/brand/og-ima
         </p>
       </div>
     </footer>
+
+    {/* CTA click tracking → GA4 `cta_click` event. Instruments EXISTING CTAs only;
+        adds no CTAs and changes no content. Delegated capture-phase listener. */}
+    <script is:inline>
+      document.addEventListener(
+        "click",
+        function (e) {
+          var a = e.target && e.target.closest ? e.target.closest("a[href]") : null;
+          if (!a) return;
+          var href = a.getAttribute("href") || "";
+          var label = null;
+          if (/amazon\./i.test(href)) label = "amazon";
+          else if (/audible\./i.test(href)) label = "audible";
+          else if (/systemhub\.com/i.test(href)) label = "systemhub";
+          else if (/\/getcertified/i.test(href)) label = "get_certified";
+          else if (/book-raves/i.test(href)) label = "book_raves";
+          else if (/^\/pdf\/[^/]+\/$/.test(href) && a.classList.contains("btn-cta"))
+            label = "start_reading";
+          if (!label) return;
+          var path = window.location.pathname.replace(/\/$/, "");
+          var loc = path === "/pdf" || path === "" ? "hub" : path.split("/").pop();
+          if (typeof gtag === "function") {
+            gtag("event", "cta_click", {
+              cta_label: label,
+              cta_location: loc,
+              link_url: href,
+            });
+          }
+        },
+        true
+      );
+    </script>
   </body>
 </html>
