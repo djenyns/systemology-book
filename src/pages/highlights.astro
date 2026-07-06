@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
-import { book } from "@data/book";
+import { book, SAMPLE_MODE } from "@data/book";
 
 const description =
   "The most-highlighted lines from SYSTEMology by David Jenyns — the passages real readers chose to save. Curated from Goodreads and reader reviews.";
@@ -158,7 +158,7 @@ const highlights = [
         "name": book.title,
         "author": { "@type": "Person", "name": book.author.name },
       },
-      "license": book.license,
+      ...(SAMPLE_MODE ? {} : { "license": book.license }),
     })}></script>
   </Fragment>
 
@@ -198,9 +198,8 @@ const highlights = [
 
     <footer class="highlights__footer">
       <p>
-        These are publicly-saved highlights. <em>SYSTEMology</em> is published under <a
-          href={book.license}
-          rel="license">CC BY-NC-ND 4.0</a> — you're free to quote and cite with attribution.
+        These are publicly-saved highlights — you're free to quote and cite them with
+        attribution to David Jenyns.
       </p>
       <p>
         <a href="/pdf/" class="btn-secondary">↑ Back to Table of Contents</a>

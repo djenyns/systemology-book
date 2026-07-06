@@ -3,7 +3,7 @@ import BaseLayout from "./BaseLayout.astro";
 import BookSchema from "@components/BookSchema.astro";
 import AudioPlayer from "@components/AudioPlayer.astro";
 import WistiaVideo from "@components/WistiaVideo.astro";
-import { chaptersBySlug, chapters, type Chapter } from "@data/book";
+import { chaptersBySlug, chapters, isLive, BOOK_URL, type Chapter } from "@data/book";
 
 interface Props {
   slug: string;
@@ -24,6 +24,9 @@ const stageOrder = chapters.map((c) => c.slug);
 const idx = stageOrder.indexOf(slug);
 const next = idx < chapters.length - 1 ? chapters[idx + 1] : null;
 const prev = idx > 0 ? chapters[idx - 1] : null;
+
+// Sample mode: neighbours that aren't published online link to the book sales page.
+const chapterHref = (c: Chapter) => (isLive(c) ? `/pdf/${c.slug}/` : BOOK_URL);
 
 const masthead = chapter.number !== null
   ? `Stage ${chapter.number} of 7`
@@ -71,14 +74,14 @@ const masthead = chapter.number !== null
         {next && (
           <div class="intro__next">
             <span class="intro__next-label">Next</span>
-            <a href={`/pdf/${next.slug}/`}>{next.title} →</a>
+            <a href={chapterHref(next)}>{next.title} →</a>
           </div>
         )}
 
         <div class="intro__nav">
           {prev && (
             <p>
-              <a href={`/pdf/${prev.slug}/`}>← Back to {prev.title}</a>
+              <a href={chapterHref(prev)}>← Back to {prev.title}</a>
             </p>
           )}
           <p>
@@ -140,7 +143,7 @@ const masthead = chapter.number !== null
 
       <nav class="chapter__footer-nav">
         {prev ? (
-          <a href={`/pdf/${prev.slug}/`} class="chapter__footer-link chapter__footer-link--prev">
+          <a href={chapterHref(prev)} class="chapter__footer-link chapter__footer-link--prev">
             <span class="chapter__footer-label">← Previous</span>
             <span class="chapter__footer-title">{prev.title}</span>
           </a>
@@ -148,8 +151,8 @@ const masthead = chapter.number !== null
           <span />
         )}
         {next ? (
-          <a href={`/pdf/${next.slug}/`} class="chapter__footer-link chapter__footer-link--next">
-            <span class="chapter__footer-label">Next →</span>
+          <a href={chapterHref(next)} class="chapter__footer-link chapter__footer-link--next">
+            <span class="chapter__footer-label">{isLive(next) ? "Next →" : "Continue in the book →"}</span>
             <span class="chapter__footer-title">{next.title}</span>
           </a>
         ) : (

@@ -251,3 +251,23 @@ export const chaptersBySlug: Record<string, Chapter> = Object.fromEntries(
 );
 
 export const stageChapters = chapters.filter((c) => c.number !== null);
+
+/**
+ * SAMPLE MODE — the Kindle edition is enrolled in Kindle Unlimited (KDP
+ * Select), whose terms require ebook exclusivity, so only front matter is
+ * published online (~13% of the text). Locked chapters stay in content/
+ * untouched; their TOC cards grey out and link to the book sales page.
+ *
+ * To restore the full free web edition: set to false, remove the sample-mode
+ * 301 block from public/_redirects, and restore the full-text llms.txt.
+ */
+export const SAMPLE_MODE = true;
+
+export const BOOK_URL = "https://www.systemology.com/book/";
+
+export function isLive(c: Chapter): boolean {
+  if (!SAMPLE_MODE) return true;
+  return c.slug === "foreword" || c.slug === "introduction" || c.slug === "about";
+}
+
+export const liveChapters = chapters.filter(isLive);

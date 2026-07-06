@@ -1,13 +1,20 @@
 ---
 import { getCollection, render } from "astro:content";
 import ChapterLayout from "@layouts/ChapterLayout.astro";
+import { chaptersBySlug, isLive } from "@data/book";
 
 export async function getStaticPaths() {
   const entries = await getCollection("chapters");
-  return entries.map((entry) => ({
-    params: { slug: entry.data.slug },
-    props: { entry },
-  }));
+  // Sample mode: locked chapters keep their MDX source but aren't built.
+  return entries
+    .filter((entry) => {
+      const chapter = chaptersBySlug[entry.data.slug];
+      return chapter && isLive(chapter);
+    })
+    .map((entry) => ({
+      params: { slug: entry.data.slug },
+      props: { entry },
+    }));
 }
 
 const { entry } = Astro.props;

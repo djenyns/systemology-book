@@ -7,7 +7,7 @@
  *
  * Drop on every chapter page.
  */
-import { book, chapters, type Chapter } from "@data/book";
+import { book, chapters, isLive, SAMPLE_MODE, type Chapter } from "@data/book";
 
 interface Props {
   chapter?: Chapter;
@@ -72,7 +72,7 @@ const graph: any[] = [
     inLanguage: book.inLanguage,
     numberOfPages: book.pageCount,
     url: book.canonicalUrl,
-    license: book.license,
+    ...(SAMPLE_MODE ? {} : { license: book.license }),
     sameAs: [book.amazonUrl, book.audibleUrl, book.goodreadsUrl],
     isSimilarTo: book.isSimilarTo.map((b) => ({
       "@type": "Book",
@@ -80,7 +80,7 @@ const graph: any[] = [
       author: { "@type": "Person", name: b.author },
     })),
     hasPart: chapters
-      .filter((c) => c.slug !== "glossary" && c.slug !== "about")
+      .filter((c) => c.slug !== "glossary" && c.slug !== "about" && isLive(c))
       .map((c) => ({
         "@id": `${book.canonicalUrl}${c.slug}/#chapter`,
       })),
@@ -104,7 +104,7 @@ if (chapter) {
     position: chapter.number ?? undefined,
     url: chapterUrl,
     inLanguage: book.inLanguage,
-    license: book.license,
+    ...(SAMPLE_MODE ? {} : { license: book.license }),
     author: { "@id": personId },
   });
 
@@ -120,7 +120,7 @@ if (chapter) {
     datePublished: book.datePublished,
     dateModified: new Date().toISOString().slice(0, 10),
     inLanguage: book.inLanguage,
-    license: book.license,
+    ...(SAMPLE_MODE ? {} : { license: book.license }),
     url: chapterUrl,
   });
 }

@@ -1,6 +1,6 @@
 ---
 import "@/styles/global.css";
-import { book } from "@data/book";
+import { book, SAMPLE_MODE } from "@data/book";
 
 interface Props {
   title: string;
@@ -43,9 +43,9 @@ const resolvedOgImage = ogImage ?? "https://www.systemology.com/pdf/brand/og-ima
       rel="stylesheet"
     />
 
-    {/* CC BY-NC-ND 4.0 license */}
-    <link rel="license" href={book.license} />
-    <meta name="DC.rights" content={book.licenseShort} />
+    {/* CC BY-NC-ND 4.0 license — full free web edition only, not sample mode */}
+    {!SAMPLE_MODE && <link rel="license" href={book.license} />}
+    {!SAMPLE_MODE && <meta name="DC.rights" content={book.licenseShort} />}
 
     {/* Open Graph */}
     <meta property="og:type" content="book" />
@@ -130,12 +130,14 @@ const resolvedOgImage = ogImage ?? "https://www.systemology.com/pdf/brand/og-ima
         <p>
           by David Jenyns · Rethink Press, 2020 · ISBN {book.isbn13}
         </p>
-        <p>
-          Published online free under <a
-            href={book.license}
-            rel="license">{book.licenseShort}</a>. You are free to read and share it, in
-          full and unchanged, for non-commercial use, with attribution.
-        </p>
+        {!SAMPLE_MODE && (
+          <p>
+            Published online free under <a
+              href={book.license}
+              rel="license">{book.licenseShort}</a>. You are free to read and share it, in
+            full and unchanged, for non-commercial use, with attribution.
+          </p>
+        )}
         <p style="margin-top: 1.5em;">
           Prefer print? <a href={book.amazonUrl}>Get the paperback or Kindle</a> ·
           <a href={book.audibleUrl}> Listen on Audible</a>

@@ -1,3 +1,52 @@
+# Sample mode: the seven stage chapters + closers + reference pages are
+# unpublished (Kindle edition is in KDP Select / Kindle Unlimited, which
+# requires ebook exclusivity). Their URLs 301 to the book sales page.
+# Remove this block when SAMPLE_MODE is off in src/data/book.ts.
+/pdf/define/ https://www.systemology.com/book/ 301
+/pdf/define https://www.systemology.com/book/ 301
+/define/ https://www.systemology.com/book/ 301
+/define https://www.systemology.com/book/ 301
+/pdf/assign/ https://www.systemology.com/book/ 301
+/pdf/assign https://www.systemology.com/book/ 301
+/assign/ https://www.systemology.com/book/ 301
+/assign https://www.systemology.com/book/ 301
+/pdf/extract/ https://www.systemology.com/book/ 301
+/pdf/extract https://www.systemology.com/book/ 301
+/extract/ https://www.systemology.com/book/ 301
+/extract https://www.systemology.com/book/ 301
+/pdf/organise/ https://www.systemology.com/book/ 301
+/pdf/organise https://www.systemology.com/book/ 301
+/organise/ https://www.systemology.com/book/ 301
+/organise https://www.systemology.com/book/ 301
+/pdf/integrate/ https://www.systemology.com/book/ 301
+/pdf/integrate https://www.systemology.com/book/ 301
+/integrate/ https://www.systemology.com/book/ 301
+/integrate https://www.systemology.com/book/ 301
+/pdf/scale/ https://www.systemology.com/book/ 301
+/pdf/scale https://www.systemology.com/book/ 301
+/scale/ https://www.systemology.com/book/ 301
+/scale https://www.systemology.com/book/ 301
+/pdf/optimise/ https://www.systemology.com/book/ 301
+/pdf/optimise https://www.systemology.com/book/ 301
+/optimise/ https://www.systemology.com/book/ 301
+/optimise https://www.systemology.com/book/ 301
+/pdf/now-is-the-time/ https://www.systemology.com/book/ 301
+/pdf/now-is-the-time https://www.systemology.com/book/ 301
+/now-is-the-time/ https://www.systemology.com/book/ 301
+/now-is-the-time https://www.systemology.com/book/ 301
+/pdf/epilogue/ https://www.systemology.com/book/ 301
+/pdf/epilogue https://www.systemology.com/book/ 301
+/epilogue/ https://www.systemology.com/book/ 301
+/epilogue https://www.systemology.com/book/ 301
+/pdf/myths-summary/ https://www.systemology.com/book/ 301
+/pdf/myths-summary https://www.systemology.com/book/ 301
+/myths-summary/ https://www.systemology.com/book/ 301
+/myths-summary https://www.systemology.com/book/ 301
+/pdf/glossary/ https://www.systemology.com/book/ 301
+/pdf/glossary https://www.systemology.com/book/ 301
+/glossary/ https://www.systemology.com/book/ 301
+/glossary https://www.systemology.com/book/ 301
+
 # Cloudflare Pages: serve the site at both / and /pdf/ paths.
 # Astro is built with base: "/pdf", so asset URLs in HTML reference
 # /pdf/_astro/foo.css. The actual files sit at /_astro/foo.css in

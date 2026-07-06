@@ -1,10 +1,11 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
 import BookSchema from "@components/BookSchema.astro";
-import { book, chapters } from "@data/book";
+import { book, chapters, isLive, SAMPLE_MODE, BOOK_URL } from "@data/book";
 
-const description =
-  "Read SYSTEMology free online. The seven-step framework — Define, Assign, Extract, Organise, Integrate, Scale, Optimise — for systemising any business and freeing the owner from daily operations. Full book by David Jenyns under CC BY-NC-ND 4.0.";
+const description = SAMPLE_MODE
+  ? "Sample SYSTEMology free online. The seven-step framework — Define, Assign, Extract, Organise, Integrate, Scale, Optimise — for systemising any business and freeing the owner from daily operations. Read the opening chapters by David Jenyns free."
+  : "Read SYSTEMology free online. The seven-step framework — Define, Assign, Extract, Organise, Integrate, Scale, Optimise — for systemising any business and freeing the owner from daily operations. Full book by David Jenyns under CC BY-NC-ND 4.0.";
 
 // Reader photos — staged in /public/photos/readers/
 const readerPhotos = [
@@ -29,7 +30,7 @@ const readerPhotos = [
   <section class="hub-hero">
     <div class="hub-hero__inner">
       <div class="hub-hero__text">
-        <p class="hub-hero__masthead">The complete book — free online</p>
+        <p class="hub-hero__masthead">{SAMPLE_MODE ? "Sample the book — free online" : "The complete book — free online"}</p>
         <h1 class="hub-hero__title">{book.title}</h1>
         <p class="hub-hero__subtitle">{book.subtitle}</p>
         <p class="hub-hero__author">
@@ -79,8 +80,8 @@ const readerPhotos = [
 
       <ol class="hub__chapter-list">
         {chapters.map((c) => (
-          <li class="hub__chapter">
-            <a href={`/pdf/${c.slug}/`}>
+          <li class={isLive(c) ? "hub__chapter" : "hub__chapter hub__chapter--locked"}>
+            <a href={isLive(c) ? `/pdf/${c.slug}/` : BOOK_URL}>
               <p class="hub__chapter-masthead">
                 {c.number !== null
                   ? `Stage ${c.number}`
@@ -94,6 +95,7 @@ const readerPhotos = [
               </p>
               <p class="hub__chapter-title">{c.title}</p>
               <p class="hub__chapter-subtitle">{c.subtitle}</p>
+              {!isLive(c) && <p class="hub__chapter-locked-note">Continue in the book →</p>}
             </a>
           </li>
         ))}
@@ -385,6 +387,21 @@ const readerPhotos = [
     margin: 0;
     line-height: 1.4;
     font-size: 0.95em;
+  }
+
+  /* Sample mode: locked chapters grey out and link to the book sales page */
+  .hub__chapter--locked a { opacity: 0.4; }
+  .hub__chapter--locked a:hover { opacity: 0.65; }
+  .hub__chapter--locked a:hover .hub__chapter-title { color: rgb(var(--color-navy)); }
+  .hub__chapter--locked a::before { display: none; }
+  .hub__chapter-locked-note {
+    font-size: 0.8em;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 700;
+    color: rgb(var(--color-navy));
+    margin: 0.5em 0 0;
   }
 
   /* Book overview video */
