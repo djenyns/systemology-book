@@ -32,7 +32,7 @@ export const book = {
   licenseShort: "CC BY-NC-ND 4.0",
   canonicalUrl: "https://www.systemology.com/pdf/",
   amazonUrl: "https://www.amazon.com/dp/B08CDY993G",
-  audibleUrl: "https://www.audible.com/pd/SYSTEMology-Audiobook/B08FLBPP9R",
+  audibleUrl: "https://www.audible.com/pd/Systemology-Audiobook/B08FXSJ8KJ",
   goodreadsUrl: "https://www.goodreads.com/book/show/54609541-systemology",
   // Comparable books per Audible "Listeners Also Bought" — drives isSimilarTo schema
   isSimilarTo: [
