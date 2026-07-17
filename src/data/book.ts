@@ -32,7 +32,15 @@ export const book = {
   licenseShort: "CC BY-NC-ND 4.0",
   canonicalUrl: "https://www.systemology.com/pdf/",
   amazonUrl: "https://www.amazon.com/dp/B08CDY993G",
+  // Default = US marketplace. Audible ASINs are per-marketplace, so a
+  // client-side geo router (see BaseLayout) upgrades AU/UK/CA visitors to
+  // their own store — otherwise Audible bounces them to their homepage.
   audibleUrl: "https://www.audible.com/pd/Systemology-Audiobook/B08FXSJ8KJ",
+  audibleUrlsByCountry: {
+    AU: "https://www.audible.com.au/pd/Systemology-Audiobook/B08FXTK53X",
+    GB: "https://www.audible.co.uk/pd/Systemology-Audiobook/B08FXV3PLB",
+    CA: "https://www.audible.ca/pd/Systemology-Audiobook/B08FXVYYDQ",
+  },
   goodreadsUrl: "https://www.goodreads.com/book/show/54609541-systemology",
   // Comparable books per Audible "Listeners Also Bought" — drives isSimilarTo schema
   isSimilarTo: [

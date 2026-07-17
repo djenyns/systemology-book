@@ -148,6 +148,39 @@ const resolvedOgImage = ogImage ?? "https://www.systemology.com/pdf/brand/og-ima
       </div>
     </footer>
 
+    {/* Audible geo-router. Audible ASINs are per-marketplace, so a US .com
+        product link bounces non-US visitors to their local homepage. Detect
+        region (timezone first, then locale) and upgrade AU/UK/CA audiobook
+        links to their own store. Default stays US .com if JS is off/unmatched. */}
+    <script is:inline define:vars={{ audibleUS: book.audibleUrl, audibleByCountry: book.audibleUrlsByCountry }}>
+      (function () {
+        function pickCountry() {
+          try {
+            var tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
+            if (/^Australia\//.test(tz)) return "AU";
+            if (tz === "Europe/London" || tz === "Europe/Belfast") return "GB";
+            if (/^(America\/(Toronto|Vancouver|Edmonton|Winnipeg|Halifax|St_Johns|Regina|Moncton|Glace_Bay|Goose_Bay|Dawson|Whitehorse|Yellowknife|Iqaluit|Rankin_Inlet|Resolute|Cambridge_Bay|Creston|Fort_Nelson|Blanc-Sablon|Atikokan|Rainy_River)|Canada\/)/.test(tz))
+              return "CA";
+          } catch (e) {}
+          try {
+            var m = (navigator.language || "").toUpperCase().match(/-([A-Z]{2})$/);
+            if (m && audibleByCountry[m[1]]) return m[1];
+          } catch (e) {}
+          return null;
+        }
+        function apply() {
+          var c = pickCountry();
+          var url = (c && audibleByCountry[c]) || audibleUS;
+          if (url === audibleUS) return;
+          var links = document.querySelectorAll('a[href*="audible."]');
+          for (var i = 0; i < links.length; i++) links[i].setAttribute("href", url);
+        }
+        if (document.readyState === "loading")
+          document.addEventListener("DOMContentLoaded", apply);
+        else apply();
+      })();
+    </script>
+
     {/* CTA click tracking → GA4 `cta_click` event. Instruments EXISTING CTAs only;
         adds no CTAs and changes no content. Delegated capture-phase listener. */}
     <script is:inline>
