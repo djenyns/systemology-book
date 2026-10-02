@@ -81,6 +81,10 @@ const resolvedOgImage = ogImage ?? "https://www.systemology.com/pdf/brand/og-ima
     <script is:inline define:vars={{ id: "G-SP44Y9LJ21" }}>
       window.dataLayer = window.dataLayer || [];
       function gtag() { dataLayer.push(arguments); }
+      // define:vars wraps this block in a function, so gtag would otherwise be local
+      // and the cta_click listener's `typeof gtag === "function"` check fails silently
+      // (cta_click went to zero on /pdf/ after 6 Aug 2026). Same fix as systemschampion-book.
+      window.gtag = gtag;
       gtag("js", new Date());
       gtag("config", id);
     </script>
